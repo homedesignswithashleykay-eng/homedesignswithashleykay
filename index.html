@@ -757,7 +757,11 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);min
       <button class="btn-outline" style="color:var(--forest);border-color:rgba(30,58,47,0.25);" onclick="showSection('moodboard')">Take the Style Quiz</button>
     </div>
   </div>
-  <footer><div class="footer-logo">Home Designs with <em>Ashley Kay</em></div><div class="footer-links"><a onclick="showSection('home')">Home</a><a onclick="showSection('packages')">Packages</a><a onclick="showSection('questionnaire')">Questionnaire</a><a onclick="showSection('moodboard')">Style Quiz</a><a onclick="showSection('booking')">Book a Call</a></div><p>@homedesignswithashleykay</p></footer>
+  <footer><div class="footer-logo">Home Designs with <em>Ashley Kay</em></div><div class="footer-links"><a onclick="showSection('home')">Home</a><a onclick="showSection('packages')">Packages</a><a onclick="showSection('questionnaire')">Questionnaire</a><a onclick="showSection('moodboard')">Style Quiz</a><a onclick="showSection('booking')">Book a Call</a></div><p>@homedesignswithashleykay</p>
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;">
+      <a href="admin.html" style="font-size:10px;color:rgba(245,240,232,0.15);letter-spacing:2px;text-transform:uppercase;text-decoration:none;" onmouseover="this.style.color='rgba(184,151,74,0.6)'" onmouseout="this.style.color='rgba(245,240,232,0.15)'">Admin Portal</a>
+    </div>
+  </footer>
 </section>
 
 <section id="packages">
@@ -786,7 +790,11 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);min
       <div class="addon-card"><div class="addon-emoji">📋</div><h4>Room Checklist</h4><div class="addon-card-price">+$25</div><p>Printable checklist PDF</p></div>
     </div>
   </div>
-  <footer><div class="footer-logo">Home Designs with <em>Ashley Kay</em></div><div class="footer-links"><a onclick="showSection('home')">Home</a><a onclick="showSection('packages')">Packages</a><a onclick="showSection('questionnaire')">Questionnaire</a><a onclick="showSection('moodboard')">Style Quiz</a><a onclick="showSection('booking')">Book a Call</a></div><p>@homedesignswithashleykay</p></footer>
+  <footer><div class="footer-logo">Home Designs with <em>Ashley Kay</em></div><div class="footer-links"><a onclick="showSection('home')">Home</a><a onclick="showSection('packages')">Packages</a><a onclick="showSection('questionnaire')">Questionnaire</a><a onclick="showSection('moodboard')">Style Quiz</a><a onclick="showSection('booking')">Book a Call</a></div><p>@homedesignswithashleykay</p>
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;">
+      <a href="admin.html" style="font-size:10px;color:rgba(245,240,232,0.15);letter-spacing:2px;text-transform:uppercase;text-decoration:none;" onmouseover="this.style.color='rgba(184,151,74,0.6)'" onmouseout="this.style.color='rgba(245,240,232,0.15)'">Admin Portal</a>
+    </div>
+  </footer>
 </section>
 
 <section id="questionnaire">
@@ -1023,7 +1031,7 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);min
       <div class="result-cta-title" id="resultCtaTitle"></div>
       <div class="result-cta-sub">Ashley takes a photo of your current room and sends back your dream version — virtually, within 10 days. Starting at $149.</div>
       <div class="result-btns">
-        <a class="btn-book-result" id="resultBookBtn" href="#">Book My Design Package</a>
+        <a class="btn-book-result" id="resultBookBtn" href="#" onclick="event.preventDefault();showSection('questionnaire')">Book My Design Package</a>
         <button class="btn-retake" onclick="retake()">Retake the Quiz</button>
       </div>
     </div>
@@ -1099,6 +1107,9 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);min
       <a onclick="showSection('booking')">Book a Call</a>
     </div>
     <p>@homedesignswithashleykay · Virtual Interior Design</p>
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06);">
+      <a href="admin.html" style="font-size:10px;color:rgba(245,240,232,0.15);letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='rgba(184,151,74,0.6)'" onmouseout="this.style.color='rgba(245,240,232,0.15)'">Admin Portal</a>
+    </div>
   </footer>
 </section>
 <script>
@@ -1384,7 +1395,11 @@ function showResult(){
   }).join('');
 
   document.getElementById('resultCtaTitle').textContent=s.cta;
-  document.getElementById('resultBookBtn').href='mailto:homedesignswithashleykay@gmail.com?subject=My style is '+encodeURIComponent(s.email)+' - book me in';
+  document.getElementById('resultBookBtn').onclick=function(e){
+    e.preventDefault();
+    // Pre-select the style in questionnaire if possible
+    showSection('questionnaire');
+  };
   window.scrollTo({top:0,behavior:'smooth'});
 }
 

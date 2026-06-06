@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Home Designs with Ashley Kay · Virtual Interior Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+function selectBookingPkg(pkg, el) {
+  document.querySelectorAll('.booking-pkg-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  const names = {refresh:'The Refresh', revamp:'The Revamp', homeedit:'The Home Edit'};
+  const badge = document.getElementById('selectedPkgBadge');
+  if(badge) badge.textContent = names[pkg] || pkg;
+}
+function toggleFaq(el) {
+  el.classList.toggle('open');
+}
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root {
+  --forest: #1E3A2F;
+  --forest-deep: #152B22;
+  --gold: #B8974A;
+  --gold-light: #D4B06A;
+  --cream: #F5F0E8;
+  --cream-dark: #EDE5D8;
+  --warm-white: #FAF7F2;
+  --text: #1C1C1A;
+  --muted: #6B6558;
+  --clay: #C4622D;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--warm-white);color:var(--text);overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 40px;
+  background:rgba(21,43,34,0.97);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(184,151,74,0.2);
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;font-weight:400;color:var(--cream);letter-spacing:0.5px;
+  cursor:pointer;
+}
+.nav-logo span{color:var(--gold);font-style:italic;}
+.nav-links{display:flex;gap:32px;align-items:center;}
+.nav-links a{
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(245,240,232,0.7);text-decoration:none;
+  transition:color 0.2s;cursor:pointer;
+}
+.nav-links a:hover{color:var(--gold);}
+.nav-book{
+  background:var(--gold);color:var(--forest-deep)!important;
+  padding:9px 20px;border-radius:4px;font-weight:600!important;
+  letter-spacing:2px!important;
+}
+.nav-book:hover{background:var(--gold-light)!important;color:var(--forest-deep)!important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--cream);}
+@media(max-width:768px){
+  .nav-links{display:none;position:fixed;top:60px;left:0;right:0;bottom:0;
+    background:var(--forest-deep);flex-direction:column;justify-content:center;
+    align-items:center;gap:36px;z-index:99;}
+  .nav-links.open{display:flex;}
+  .hamburger{display:flex;}
+  nav{padding:16px 24px;}
+}
+
+/* ── SECTIONS ── */
+section{display:none;}
+section.active{display:block;}
+
+/* ══════════════════════════════
+   HOME
+══════════════════════════════ */
+#home{min-height:100vh;}
+
+.hero{
+  min-height:100vh;
+  background:linear-gradient(160deg,var(--forest-deep) 0%,var(--forest) 55%,#2D5040 100%);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:120px 24px 80px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(184,151,74,0.07) 0%,transparent 70%),
+             radial-gradient(circle at 80% 80%,rgba(30,58,47,0.4) 0%,transparent 50%);
+}
+.hero-eyebrow{
+  font-size:10px;letter-spacing:6px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:28px;position:relative;
+  display:flex;align-items:center;gap:16px;
+}
+.hero-eyebrow::before,.hero-eyebrow::after{
+  content:'';display:block;width:40px;height:1px;background:var(--gold);opacity:0.5;
+}
+.hero h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(48px,8vw,96px);font-weight:300;
+  color:var(--cream);line-height:1.05;letter-spacing:-1px;
+  position:relative;margin-bottom:8px;
+}
+.hero h1 em{color:var(--gold);font-style:italic;}
+.hero-sub{
+  font-size:clamp(15px,2vw,18px);color:rgba(245,240,232,0.65);
+  max-width:520px;line-height:1.7;margin:28px auto 48px;
+  position:relative;font-weight:300;
+}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;position:relative;}
+.btn-primary{
+  padding:15px 36px;background:var(--gold);color:var(--forest-deep);
+  border:none;border-radius:4px;font-family:'Jost',sans-serif;
+  font-size:12px;letter-spacing:3px;text-transform:uppercase;font-weight:600;
+  cursor:pointer;transition:all 0.2s;
+}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);}
+.btn-outline{
+  padding:15px 36px;background:transparent;
+  color:var(--cream);border:1px solid rgba(245,240,232,0.4);
+  border-radius:4px;font-family:'Jost',sans-serif;
+  font-size:12px;letter-spacing:3px;text-transform:uppercase;font-weight:400;
+  cursor:pointer;transition:all 0.2s;
+}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+
+.hero-stats{
+  display:flex;gap:60px;margin-top:80px;position:relative;
+  flex-wrap:wrap;justify-content:center;
+}
+.stat{text-align:center;}
+.stat-num{
+  font-family:'Cormorant Garamond',serif;font-size:42px;
+  color:var(--gold);font-weight:300;line-height:1;
+}
+.stat-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(245,240,232,0.5);margin-top:6px;}
+
+/* how it works */
+.how-section{
+  background:var(--cream);padding:100px 40px;
+}
+.section-label{
+  font-size:10px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--gold);text-align:center;margin-bottom:16px;
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(32px,4vw,52px);font-weight:400;
+  text-align:center;color:var(--forest-deep);margin-bottom:60px;line-height:1.2;
+}
+.steps{
+  max-width:900px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;
+}
+.step{text-align:center;}
+.step-num{
+  font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;
+  color:rgba(184,151,74,0.25);line-height:1;margin-bottom:12px;
+}
+.step h3{font-size:15px;font-weight:600;color:var(--forest);letter-spacing:1px;margin-bottom:8px;}
+.step p{font-size:13px;color:var(--muted);line-height:1.7;font-weight:300;}
+
+/* testimonial strip */
+.testimonial-strip{
+  background:var(--forest-deep);padding:70px 40px;text-align:center;
+}
+.testimonial-strip blockquote{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3vw,34px);
+  font-weight:300;font-style:italic;color:var(--cream);
+  max-width:700px;margin:0 auto 20px;line-height:1.5;
+}
+.testimonial-strip cite{
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);font-style:normal;
+}
+
+/* home CTA section */
+.home-cta{
+  background:var(--warm-white);padding:100px 40px;text-align:center;
+}
+.home-cta p{
+  font-size:16px;color:var(--muted);max-width:500px;margin:0 auto 36px;
+  line-height:1.7;font-weight:300;
+}
+
+/* ══════════════════════════════
+   PACKAGES
+══════════════════════════════ */
+#packages{min-height:100vh;padding-top:80px;}
+
+.packages-hero{
+  background:linear-gradient(160deg,var(--forest-deep),var(--forest));
+  padding:80px 40px 70px;text-align:center;
+}
+.packages-hero h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,5vw,64px);font-weight:300;
+  color:var(--cream);margin-bottom:16px;
+}
+.packages-hero p{
+  font-size:15px;color:rgba(245,240,232,0.65);
+  max-width:480px;margin:0 auto;line-height:1.7;font-weight:300;
+}
+
+.packages-grid{
+  max-width:1100px;margin:0 auto;
+  padding:60px 24px 80px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;
+}
+
+.pkg-card{
+  border-radius:12px;overflow:hidden;
+  border:1px solid rgba(30,58,47,0.12);
+  background:#FFF;
+  transition:transform 0.3s,box-shadow 0.3s;
+  position:relative;
+}
+.pkg-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(30,58,47,0.12);}
+.pkg-card.featured{border-color:var(--forest);border-width:2px;}
+
+.pkg-badge{
+  position:absolute;top:20px;right:20px;
+  background:var(--gold);color:var(--forest-deep);
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;
+  padding:5px 12px;border-radius:20px;
+}
+
+.pkg-header{
+  background:var(--forest-deep);padding:36px 32px;
+}
+.pkg-num{
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  color:rgba(184,151,74,0.7);margin-bottom:12px;
+}
+.pkg-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:38px;font-weight:400;color:var(--cream);margin-bottom:4px;
+}
+.pkg-price{
+  font-size:26px;font-weight:600;color:var(--gold);margin-bottom:12px;
+}
+.pkg-tagline{
+  font-size:13px;color:rgba(245,240,232,0.6);
+  font-style:italic;font-family:'Cormorant Garamond',serif;
+  line-height:1.5;
+}
+.pkg-turnaround{
+  margin-top:14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(184,151,74,0.8);
+}
+
+.pkg-body{padding:32px;}
+.pkg-includes-label{
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:16px;
+}
+.pkg-features{list-style:none;margin-bottom:28px;}
+.pkg-features li{
+  font-size:14px;color:var(--text);padding:9px 0;
+  border-bottom:1px solid rgba(0,0,0,0.05);
+  display:flex;align-items:flex-start;gap:10px;line-height:1.4;
+}
+.pkg-features li::before{
+  content:'✓';color:var(--forest);font-weight:700;font-size:12px;
+  margin-top:1px;flex-shrink:0;
+}
+.pkg-revisions{
+  display:flex;gap:8px;align-items:center;margin-bottom:28px;
+}
+.rev-dot{
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;
+}
+.rev-dot.filled{background:var(--forest);color:#FFF;}
+.rev-dot.empty{background:rgba(30,58,47,0.1);color:var(--muted);}
+.rev-label{font-size:11px;color:var(--muted);letter-spacing:1px;margin-left:4px;}
+
+.pkg-addons{
+  background:var(--cream);border-radius:8px;padding:20px 24px;margin-bottom:28px;
+}
+.pkg-addons-title{
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:12px;
+}
+.addon-item{
+  display:flex;justify-content:space-between;
+  font-size:13px;color:var(--text);padding:6px 0;
+  border-bottom:1px solid rgba(0,0,0,0.06);
+}
+.addon-item:last-child{border-bottom:none;}
+.addon-price{color:var(--forest);font-weight:600;}
+
+.btn-book-pkg{
+  display:block;width:100%;padding:15px;
+  background:var(--forest);color:var(--cream);
+  border:none;border-radius:6px;
+  font-family:'Jost',sans-serif;font-size:11px;
+  letter-spacing:3px;text-transform:uppercase;font-weight:600;
+  cursor:pointer;transition:all 0.2s;text-align:center;
+}
+.btn-book-pkg:hover{background:var(--forest-deep);}
+.pkg-card.featured .btn-book-pkg{background:var(--gold);color:var(--forest-deep);}
+.pkg-card.featured .btn-book-pkg:hover{background:var(--gold-light);}
+
+/* addons section */
+.addons-section{
+  background:var(--cream);padding:60px 40px;
+}
+.addons-grid{
+  max-width:800px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;
+}
+.addon-card{
+  background:#FFF;border-radius:10px;padding:24px;
+  border:1px solid rgba(30,58,47,0.08);text-align:center;
+}
+.addon-card .addon-emoji{font-size:28px;margin-bottom:10px;}
+.addon-card h4{font-size:13px;font-weight:600;color:var(--forest);margin-bottom:4px;}
+.addon-card .addon-card-price{font-size:18px;font-weight:700;color:var(--gold);}
+.addon-card p{font-size:12px;color:var(--muted);margin-top:4px;}
+
+/* ══════════════════════════════
+   QUESTIONNAIRE
+══════════════════════════════ */
+#questionnaire{min-height:100vh;padding-top:80px;}
+
+.q-hero{
+  background:linear-gradient(160deg,var(--forest-deep),var(--forest));
+  padding:70px 40px 60px;text-align:center;
+}
+.q-hero h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(32px,4vw,56px);font-weight:300;color:var(--cream);margin-bottom:12px;
+}
+.q-hero p{font-size:14px;color:rgba(245,240,232,0.6);font-weight:300;max-width:440px;margin:0 auto;}
+
+.q-wrap{max-width:680px;margin:0 auto;padding:50px 24px 80px;}
+
+.q-progress{
+  display:flex;align-items:center;gap:0;margin-bottom:48px;
+}
+.q-step-dot{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:600;flex-shrink:0;
+  transition:all 0.3s;
+}
+.q-step-dot.done{background:var(--forest);color:#FFF;}
+.q-step-dot.active{background:var(--gold);color:var(--forest-deep);}
+.q-step-dot.future{background:rgba(30,58,47,0.1);color:var(--muted);}
+.q-line{flex:1;height:2px;background:rgba(30,58,47,0.1);}
+.q-line.done{background:var(--forest);}
+
+.q-page{display:none;}
+.q-page.active{display:block;animation:fadeIn 0.3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.q-page-label{
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:10px;
+}
+.q-page-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(26px,3vw,38px);font-weight:400;
+  color:var(--forest-deep);margin-bottom:6px;line-height:1.2;
+}
+.q-page-sub{font-size:13px;color:var(--muted);margin-bottom:36px;font-weight:300;line-height:1.6;}
+
+.q-field{margin-bottom:24px;}
+.q-label{
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:8px;display:block;font-weight:500;
+}
+.q-input,.q-select,.q-textarea{
+  width:100%;padding:14px 16px;
+  background:#FFF;border:1.5px solid rgba(30,58,47,0.15);
+  border-radius:8px;font-family:'Jost',sans-serif;
+  font-size:14px;color:var(--text);outline:none;
+  transition:border-color 0.2s;
+  appearance:none;
+}
+.q-input:focus,.q-select:focus,.q-textarea:focus{border-color:var(--forest);}
+.q-textarea{resize:vertical;min-height:90px;line-height:1.6;}
+
+.q-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:540px){.q-grid{grid-template-columns:1fr;}}
+
+.style-chips{display:flex;flex-wrap:wrap;gap:10px;}
+.style-chip{
+  padding:9px 18px;border-radius:30px;
+  border:1.5px solid rgba(30,58,47,0.2);
+  background:#FFF;font-family:'Jost',sans-serif;
+  font-size:13px;color:var(--text);cursor:pointer;
+  transition:all 0.2s;user-select:none;
+}
+.style-chip.selected{
+  background:var(--forest);color:var(--cream);border-color:var(--forest);
+}
+
+.rooms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+@media(max-width:400px){.rooms-grid{grid-template-columns:1fr 1fr;}}
+.room-chip{
+  padding:12px 8px;border-radius:8px;
+  border:1.5px solid rgba(30,58,47,0.15);
+  background:#FFF;text-align:center;cursor:pointer;
+  transition:all 0.2s;
+}
+.room-chip.selected{background:var(--forest);border-color:var(--forest);}
+.room-chip .room-icon{font-size:22px;margin-bottom:6px;}
+.room-chip .room-name{font-size:11px;color:var(--text);font-weight:500;letter-spacing:0.5px;}
+.room-chip.selected .room-name{color:var(--cream);}
+
+.pkg-select-cards{display:grid;gap:12px;}
+.pkg-select-card{
+  padding:20px 24px;border-radius:10px;
+  border:1.5px solid rgba(30,58,47,0.15);
+  background:#FFF;cursor:pointer;transition:all 0.2s;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.pkg-select-card:hover{border-color:var(--forest);}
+.pkg-select-card.selected{background:var(--forest);border-color:var(--forest);}
+.pkg-select-card .pkg-sc-name{
+  font-weight:600;font-size:15px;color:var(--text);
+}
+.pkg-select-card.selected .pkg-sc-name{color:var(--cream);}
+.pkg-select-card .pkg-sc-price{
+  font-size:15px;font-weight:600;color:var(--gold);
+}
+.pkg-select-card .pkg-sc-desc{
+  font-size:12px;color:var(--muted);margin-top:3px;
+}
+.pkg-select-card.selected .pkg-sc-desc{color:rgba(245,240,232,0.65);}
+
+.q-nav{display:flex;gap:12px;margin-top:36px;align-items:center;}
+.q-btn-next{
+  flex:1;padding:15px;background:var(--forest);color:var(--cream);
+  border:none;border-radius:8px;font-family:'Jost',sans-serif;
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:600;
+  cursor:pointer;transition:background 0.2s;
+}
+.q-btn-next:hover{background:var(--forest-deep);}
+.q-btn-back{
+  padding:15px 24px;background:transparent;
+  border:1.5px solid rgba(30,58,47,0.2);color:var(--muted);
+  border-radius:8px;font-family:'Jost',sans-serif;
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;transition:all 0.2s;
+}
+.q-btn-back:hover{border-color:var(--forest);color:var(--forest);}
+
+/* summary */
+.q-summary{
+  background:#FFF;border-radius:14px;
+  border:1px solid rgba(30,58,47,0.1);
+  padding:32px;margin-bottom:24px;
+}
+.q-summary-item{
+  display:flex;gap:12px;padding:12px 0;
+  border-bottom:1px solid rgba(0,0,0,0.05);
+  font-size:14px;
+}
+.q-summary-item:last-child{border-bottom:none;}
+.q-summary-label{color:var(--muted);font-size:12px;width:140px;flex-shrink:0;font-weight:500;}
+.q-summary-val{color:var(--text);line-height:1.5;}
+
+.q-submit{
+  width:100%;padding:17px;background:var(--gold);color:var(--forest-deep);
+  border:none;border-radius:8px;font-family:'Jost',sans-serif;
+  font-size:12px;letter-spacing:3px;text-transform:uppercase;font-weight:700;
+  cursor:pointer;transition:all 0.2s;margin-bottom:12px;
+}
+.q-submit:hover{background:var(--gold-light);}
+
+/* success */
+.q-success{
+  text-align:center;padding:60px 24px;
+  display:none;
+}
+.q-success.show{display:block;animation:fadeIn 0.4s ease;}
+.q-success-icon{font-size:56px;margin-bottom:20px;}
+.q-success h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:36px;font-weight:400;color:var(--forest-deep);margin-bottom:12px;
+}
+.q-success p{font-size:14px;color:var(--muted);line-height:1.7;max-width:400px;margin:0 auto 28px;}
+
+/* ══════════════════════════════
+   MOOD BOARD GENERATOR
+══════════════════════════════ */
+#moodboard{min-height:100vh;padding-top:80px;}
+
+.mb-hero{
+  background:linear-gradient(160deg,var(--forest-deep),var(--forest));
+  padding:70px 40px 60px;text-align:center;
+}
+.mb-hero h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(32px,4vw,56px);font-weight:300;color:var(--cream);margin-bottom:12px;
+}
+.mb-hero p{font-size:14px;color:rgba(245,240,232,0.6);font-weight:300;max-width:440px;margin:0 auto;}
+
+.mb-wrap{max-width:700px;margin:0 auto;padding:50px 24px 80px;}
+
+.mb-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+@media(max-width:540px){.mb-form-grid{grid-template-columns:1fr;}}
+.mb-field{display:flex;flex-direction:column;gap:7px;}
+.mb-label{
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--muted);font-weight:500;
+}
+.mb-input,.mb-select,.mb-textarea{
+  font-family:'Jost',sans-serif;font-size:14px;color:var(--text);
+  background:#FFF;border:1.5px solid rgba(30,58,47,0.15);
+  border-radius:8px;padding:12px 14px;outline:none;transition:border-color 0.2s;
+  appearance:none;
+}
+.mb-input:focus,.mb-select:focus,.mb-textarea:focus{border-color:var(--forest);}
+.mb-textarea{resize:vertical;min-height:80px;}
+.mb-full{grid-column:1/-1;}
+
+.mb-generate{
+  width:100%;margin-top:20px;padding:16px;
+  background:linear-gradient(135deg,var(--forest),var(--forest-deep));
+  color:var(--cream);border:none;border-radius:8px;
+  font-family:'Jost',sans-serif;font-size:12px;letter-spacing:3px;
+  text-transform:uppercase;font-weight:600;cursor:pointer;
+  transition:opacity 0.2s,transform 0.15s;
+}
+.mb-generate:hover{opacity:0.9;transform:translateY(-1px);}
+.mb-generate:disabled{opacity:0.45;cursor:not-allowed;transform:none;}
+
+.mb-loading{display:none;text-align:center;padding:60px 0;}
+.mb-spinner{
+  width:44px;height:44px;border-radius:50%;
+  border:3px solid rgba(30,58,47,0.12);
+  border-top-color:var(--forest);
+  animation:spin 0.8s linear infinite;
+  margin:0 auto 18px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.mb-loading p{font-size:14px;color:var(--muted);font-style:italic;}
+
+/* result board */
+.mb-result{display:none;}
+
+.board-header{text-align:center;margin-bottom:32px;}
+.board-tag{
+  display:inline-block;font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--forest);background:rgba(30,58,47,0.06);
+  border:1px solid rgba(30,58,47,0.15);padding:5px 16px;border-radius:20px;margin-bottom:14px;
+}
+.board-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(28px,4vw,42px);font-weight:400;
+  color:var(--forest-deep);line-height:1.2;
+}
+.board-subtitle{font-size:13px;color:var(--muted);margin-top:8px;font-style:italic;}
+
+.palette{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:32px;}
+.swatch{
+  display:flex;align-items:center;gap:9px;
+  background:#FFF;border-radius:30px;padding:6px 14px 6px 7px;
+  border:1px solid rgba(0,0,0,0.06);
+}
+.swatch-dot{
+  width:24px;height:24px;border-radius:50%;
+  border:2px solid rgba(255,255,255,0.8);
+  box-shadow:0 1px 4px rgba(0,0,0,0.15);flex-shrink:0;
+}
+.swatch span{font-size:12px;color:var(--text);font-weight:500;}
+
+.products-list{display:grid;gap:12px;margin-bottom:28px;}
+.prod-card{
+  background:#FFF;border-radius:12px;
+  border:1.5px solid rgba(30,58,47,0.1);
+  padding:18px 20px;cursor:pointer;
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+.prod-card:hover{border-color:rgba(30,58,47,0.3);}
+.prod-card.open{border-color:var(--forest);box-shadow:0 4px 20px rgba(30,58,47,0.1);}
+.prod-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;}
+.prod-left{display:flex;gap:14px;align-items:flex-start;}
+.prod-icon{
+  width:44px;height:44px;border-radius:10px;
+  background:rgba(30,58,47,0.07);
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+}
+.prod-cat{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--forest);margin-bottom:3px;font-weight:600;}
+.prod-name{font-size:15px;font-weight:600;color:var(--text);line-height:1.25;}
+.prod-store{font-size:12px;color:var(--muted);margin-top:2px;}
+.prod-price{font-size:19px;font-weight:700;color:var(--gold);white-space:nowrap;flex-shrink:0;}
+.prod-detail{display:none;margin-top:16px;padding-top:16px;border-top:1px solid rgba(30,58,47,0.08);}
+.prod-detail.open{display:block;}
+.prod-note{
+  font-size:13px;line-height:1.75;color:var(--forest-deep);
+  font-style:italic;margin-bottom:14px;
+  background:rgba(30,58,47,0.04);padding:12px 14px;border-radius:8px;
+}
+.prod-link{
+  display:inline-block;padding:10px 20px;
+  background:var(--forest);color:var(--cream);
+  border-radius:6px;text-decoration:none;font-size:12px;
+  font-weight:500;letter-spacing:1px;transition:opacity 0.2s;
+}
+.prod-link:hover{opacity:0.85;}
+
+.budget-box{
+  background:linear-gradient(135deg,var(--forest-deep),#0E1F18);
+  border-radius:14px;padding:24px 28px;margin-bottom:24px;
+}
+.budget-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:rgba(184,151,74,0.6);margin-bottom:6px;}
+.budget-amount{font-size:34px;font-weight:700;color:var(--gold);}
+.budget-sub{font-size:13px;color:rgba(245,240,232,0.55);margin-top:4px;}
+.bar-track{height:5px;background:rgba(255,255,255,0.08);border-radius:5px;margin-top:16px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--gold),#E8C070);transition:width 1s ease;}
+
+.rules-box{
+  background:#FFF;border-radius:14px;padding:24px 28px;
+  border:1.5px solid rgba(30,58,47,0.1);margin-bottom:24px;
+}
+.rules-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--forest);margin-bottom:16px;font-weight:600;}
+.rule-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:11px;}
+.rule-n{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--forest);color:#FFF;
+  font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;
+}
+.rule-t{font-size:13px;line-height:1.65;color:var(--forest-deep);}
+
+.mb-actions{display:flex;flex-direction:column;gap:10px;}
+.btn-new-board{
+  padding:14px;background:transparent;border:2px solid var(--forest);
+  color:var(--forest);border-radius:8px;font-family:'Jost',sans-serif;
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:600;
+  cursor:pointer;transition:all 0.2s;
+}
+.btn-new-board:hover{background:var(--forest);color:var(--cream);}
+.btn-save-pdf{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px;background:var(--gold);color:var(--forest-deep);
+  border:none;border-radius:8px;font-family:'Jost',sans-serif;
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:700;
+  cursor:pointer;transition:all 0.2s;
+}
+.btn-save-pdf:hover{background:var(--gold-light);}
+.btn-save-pdf:disabled{opacity:0.5;cursor:not-allowed;}
+
+.mb-error{
+  background:#FFF0EE;border:1.5px solid #F5A090;
+  color:#8B2010;border-radius:8px;padding:14px 18px;
+  font-size:13px;margin-top:14px;display:none;
+}
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+footer{
+  background:var(--forest-deep);padding:50px 40px;text-align:center;
+}
+.footer-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:300;color:var(--cream);margin-bottom:8px;
+}
+.footer-logo em{color:var(--gold);font-style:italic;}
+footer p{font-size:12px;color:rgba(245,240,232,0.4);letter-spacing:1px;}
+.footer-links{display:flex;gap:28px;justify-content:center;margin:20px 0;}
+.footer-links a{
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(245,240,232,0.5);text-decoration:none;cursor:pointer;
+  transition:color 0.2s;
+}
+.footer-links a:hover{color:var(--gold);}
+
+/* BOOKING */
+#booking{min-height:100vh;padding-top:80px;}
+.booking-hero{background:linear-gradient(160deg,var(--forest-deep),var(--forest));padding:70px 40px 60px;text-align:center;}
+.booking-hero h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,56px);font-weight:300;color:var(--cream);margin-bottom:12px;}
+.booking-hero p{font-size:14px;color:rgba(245,240,232,0.6);font-weight:300;max-width:480px;margin:0 auto;}
+.booking-wrap{max-width:900px;margin:0 auto;padding:50px 24px 80px;}
+.booking-which{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:40px;}
+.booking-pkg-btn{padding:20px 24px;border-radius:12px;border:1.5px solid rgba(30,58,47,0.15);background:#FFF;cursor:pointer;text-align:left;transition:all 0.2s;font-family:'Jost',sans-serif;width:100%;}
+.booking-pkg-btn:hover,.booking-pkg-btn.active{border-color:var(--forest);background:var(--forest);}
+.bpb-name{font-size:15px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.booking-pkg-btn:hover .bpb-name,.booking-pkg-btn.active .bpb-name{color:var(--cream);}
+.bpb-price{font-size:14px;color:var(--gold);}
+.bpb-note{font-size:12px;color:var(--muted);margin-top:4px;}
+.booking-pkg-btn:hover .bpb-note,.booking-pkg-btn.active .bpb-note{color:rgba(245,240,232,0.6);}
+.calendly-section{background:#FFF;border-radius:16px;border:1.5px solid rgba(30,58,47,0.1);overflow:hidden;}
+.calendly-header{background:var(--forest-deep);padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.calendly-header h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--cream);}
+.calendly-header p{font-size:12px;color:rgba(245,240,232,0.55);}
+.selected-pkg-badge{background:var(--gold);color:var(--forest-deep);padding:6px 16px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;white-space:nowrap;}
+.calendly-embed-wrap{padding:32px;display:flex;flex-direction:column;align-items:center;}
+.calendly-placeholder{width:100%;background:var(--cream);border-radius:12px;padding:50px 32px;text-align:center;border:2px dashed rgba(30,58,47,0.2);}
+.cal-icon{font-size:44px;margin-bottom:16px;}
+.calendly-placeholder h4{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--forest-deep);margin-bottom:8px;}
+.calendly-placeholder p{font-size:13px;color:var(--muted);line-height:1.7;max-width:400px;margin:0 auto 20px;}
+.cal-steps{display:flex;flex-direction:column;gap:10px;text-align:left;max-width:360px;margin:0 auto 28px;}
+.cal-step-row{display:flex;gap:12px;align-items:flex-start;background:#FFF;border-radius:8px;padding:12px 14px;border:1px solid rgba(30,58,47,0.08);}
+.cal-step-num{width:22px;height:22px;border-radius:50%;background:var(--forest);color:#FFF;font-size:11px;font-weight:700;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+.cal-step-text{font-size:13px;color:var(--text);line-height:1.5;}
+.cal-step-text strong{color:var(--forest);}
+.btn-open-calendly{display:inline-flex;align-items:center;gap:8px;padding:15px 32px;background:var(--forest);color:var(--cream);border:none;border-radius:8px;font-family:'Jost',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;font-weight:600;cursor:pointer;transition:all 0.2s;text-decoration:none;}
+.btn-open-calendly:hover{background:var(--forest-deep);}
+.booking-faq{margin-top:48px;}
+.booking-faq h3{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;color:var(--forest-deep);margin-bottom:24px;text-align:center;}
+.faq-item{background:#FFF;border-radius:10px;padding:20px 24px;border:1px solid rgba(30,58,47,0.08);margin-bottom:12px;cursor:pointer;}
+.faq-q{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:14px;font-weight:600;color:var(--forest-deep);}
+.faq-arrow{font-size:16px;color:var(--gold);transition:transform 0.2s;flex-shrink:0;}
+.faq-item.open .faq-arrow{transform:rotate(180deg);}
+.faq-a{display:none;margin-top:12px;padding-top:12px;border-top:1px solid rgba(30,58,47,0.07);font-size:13px;color:var(--muted);line-height:1.75;}
+.faq-item.open .faq-a{display:block;}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="showSection('home')">Home Designs with <span>Ashley Kay</span></div>
+  <div class="nav-links" id="navLinks">
+    <a onclick="showSection('home');closeMenu()">Home</a>
+    <a onclick="showSection('packages');closeMenu()">Packages</a>
+    <a onclick="showSection('questionnaire');closeMenu()">Questionnaire</a>
+    <a onclick="showSection('moodboard');closeMenu()">Mood Board</a>
+    <a onclick="showSection('booking');closeMenu()">Book a Call</a>
+    <a class="nav-book" onclick="showSection('booking');closeMenu()">Book Now</a>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ══ HOME ══ -->
+<section id="home" class="active">
+  <div class="hero">
+    <div class="hero-eyebrow">Virtual Interior Design</div>
+    <h1>Your dream room,<br/><em>designed remotely.</em></h1>
+    <p class="hero-sub">Professional, personalized room transformations delivered to your inbox — no in-person visits, no overwhelm.</p>
+    <div class="hero-ctas">
+      <button class="btn-primary" onclick="showSection('packages')">View Packages</button>
+      <button class="btn-outline" onclick="showSection('moodboard')">Try the Mood Board Generator</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">3</div><div class="stat-label">Service Tiers</div></div>
+      <div class="stat"><div class="stat-num">5–21</div><div class="stat-label">Day Turnaround</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Remote & Digital</div></div>
+      <div class="stat"><div class="stat-num">$149</div><div class="stat-label">Starting Price</div></div>
+    </div>
+  </div>
+
+  <div class="how-section">
+    <div class="section-label">How It Works</div>
+    <div class="section-title">From photo to dream room<br/>in four simple steps</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Choose Your Package</h3>
+        <p>Pick the tier that matches your space, timeline, and budget — from a single room refresh to a full five-room transformation.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Fill the Questionnaire</h3>
+        <p>Send photos of your space and answer a few questions about your style, lifestyle, and must-haves. That's all Ashley needs.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Ashley Gets to Work</h3>
+        <p>Your personalized mood board, color palette, furniture layout, and sourced shopping list come together in your turnaround window.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Receive & Shop</h3>
+        <p>Your complete design package arrives in your inbox as a polished PDF — with every item linked, ready to shop.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="testimonial-strip">
+    <blockquote>"She sent me a photo of my living room and sent back my dream home. I don't know how she did it from two photos."</blockquote>
+    <cite>Sarah M. · The Revamp Package</cite>
+  </div>
+
+  <div class="home-cta">
+    <div class="section-label">Get Started</div>
+    <div class="section-title">Ready to transform your space?</div>
+    <p>Not sure where to start? Try the free Mood Board Generator — enter your vibe and budget and get a custom board in seconds.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn-primary" onclick="showSection('questionnaire')">Start Your Questionnaire</button>
+      <button class="btn-outline" style="background:transparent;color:var(--forest);border-color:rgba(30,58,47,0.3);" onclick="showSection('moodboard')">Try Mood Board Generator</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Home Designs with <em>Ashley Kay</em></div>
+    <div class="footer-links">
+      <a onclick="showSection('home')">Home</a>
+      <a onclick="showSection('packages')">Packages</a>
+      <a onclick="showSection('questionnaire')">Questionnaire</a>
+      <a onclick="showSection('moodboard')">Mood Board</a>
+    </div>
+    <p>@homedesignswithashleykay · Virtual Interior Design · 100% Remote</p>
+  </footer>
+</section>
+
+<!-- ══ PACKAGES ══ -->
+<section id="packages">
+  <div class="packages-hero">
+    <div class="section-label" style="color:var(--gold);margin-bottom:12px;">Virtual Design Packages</div>
+    <h2>Every deliverable.<br/>Every detail.</h2>
+    <p>Three tiers designed for every space, every budget, and every stage of your home journey.</p>
+  </div>
+
+  <div class="packages-grid">
+
+    <!-- REFRESH -->
+    <div class="pkg-card">
+      <div class="pkg-header">
+        <div class="pkg-num">Package 01</div>
+        <div class="pkg-name">The Refresh</div>
+        <div class="pkg-price">$149 – $199</div>
+        <div class="pkg-tagline">Perfect for one room that needs a fresh direction</div>
+        <div class="pkg-turnaround">⏱ 5–7 Business Days</div>
+      </div>
+      <div class="pkg-body">
+        <div class="pkg-includes-label">What's Included</div>
+        <ul class="pkg-features">
+          <li>1 room designed</li>
+          <li>Full color palette</li>
+          <li>15–20 linked items</li>
+          <li>Digital mood board</li>
+          <li>Curated shopping list</li>
+          <li>1 revision round</li>
+        </ul>
+        <div class="pkg-includes-label">Revision Rounds</div>
+        <div class="pkg-revisions">
+          <div class="rev-dot filled">1</div>
+          <div class="rev-dot empty">2</div>
+          <div class="rev-dot empty">3</div>
+          <span class="rev-label">1 of 3 included</span>
+        </div>
+        <button class="btn-book-pkg" onclick="showSection('questionnaire');setPackage('refresh')">Book The Refresh →</button>
+      </div>
+    </div>
+
+    <!-- REVAMP -->
+    <div class="pkg-card featured">
+      <div class="pkg-badge">Most Popular</div>
+      <div class="pkg-header">
+        <div class="pkg-num">Package 02 · Most Popular</div>
+        <div class="pkg-name">The Revamp</div>
+        <div class="pkg-price">$349 – $499</div>
+        <div class="pkg-tagline">Two rooms, a layout plan, and a 30-min call with Ashley</div>
+        <div class="pkg-turnaround">⏱ 7–10 Business Days</div>
+      </div>
+      <div class="pkg-body">
+        <div class="pkg-includes-label">What's Included</div>
+        <ul class="pkg-features">
+          <li>2 rooms designed</li>
+          <li>Tiered shopping list (budget + splurge)</li>
+          <li>2 revision rounds</li>
+          <li>Furniture layout plan</li>
+          <li>Budget + splurge options</li>
+          <li>30-min virtual call with Ashley</li>
+        </ul>
+        <div class="pkg-includes-label">Revision Rounds</div>
+        <div class="pkg-revisions">
+          <div class="rev-dot filled">1</div>
+          <div class="rev-dot filled">2</div>
+          <div class="rev-dot empty">3</div>
+          <span class="rev-label">2 of 3 included</span>
+        </div>
+        <button class="btn-book-pkg" onclick="showSection('questionnaire');setPackage('revamp')">Book The Revamp →</button>
+      </div>
+    </div>
+
+    <!-- HOME EDIT -->
+    <div class="pkg-card">
+      <div class="pkg-header">
+        <div class="pkg-num">Package 03 · Full Home</div>
+        <div class="pkg-name">The Home Edit</div>
+        <div class="pkg-price">$799 – $1,299</div>
+        <div class="pkg-tagline">Up to 5 rooms, the complete transformation, start to finish</div>
+        <div class="pkg-turnaround">⏱ 14–21 Business Days</div>
+      </div>
+      <div class="pkg-body">
+        <div class="pkg-includes-label">What's Included</div>
+        <ul class="pkg-features">
+          <li>Up to 5 rooms designed</li>
+          <li>Custom layout per room</li>
+          <li>2 video calls (kickoff + reveal)</li>
+          <li>Full sourcing guide</li>
+          <li>3 revision rounds</li>
+          <li>Affiliate links throughout</li>
+        </ul>
+        <div class="pkg-includes-label">Revision Rounds</div>
+        <div class="pkg-revisions">
+          <div class="rev-dot filled">1</div>
+          <div class="rev-dot filled">2</div>
+          <div class="rev-dot filled">3</div>
+          <span class="rev-label">All 3 included</span>
+        </div>
+        <button class="btn-book-pkg" onclick="showSection('questionnaire');setPackage('homeedit')">Book The Home Edit →</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ADD-ONS -->
+  <div class="addons-section">
+    <div class="section-label">Add-Ons</div>
+    <div class="section-title" style="font-size:clamp(24px,3vw,36px);margin-bottom:32px;">Customize your package</div>
+    <div class="addons-grid">
+      <div class="addon-card"><div class="addon-emoji">🚀</div><h4>Rush Delivery</h4><div class="addon-card-price">+$75</div><p>3-day turnaround</p></div>
+      <div class="addon-card"><div class="addon-emoji">🛋️</div><h4>Extra Room</h4><div class="addon-card-price">+$100</div><p>Add any room to your package</p></div>
+      <div class="addon-card"><div class="addon-emoji">🔄</div><h4>Extra Revision</h4><div class="addon-card-price">+$50</div><p>One additional revision round</p></div>
+      <div class="addon-card"><div class="addon-emoji">📋</div><h4>Room Checklist</h4><div class="addon-card-price">+$25</div><p>Printable room checklist PDF</p></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Home Designs with <em>Ashley Kay</em></div>
+    <div class="footer-links">
+      <a onclick="showSection('home')">Home</a>
+      <a onclick="showSection('packages')">Packages</a>
+      <a onclick="showSection('questionnaire')">Questionnaire</a>
+      <a onclick="showSection('moodboard')">Mood Board</a>
+    </div>
+    <p>@homedesignswithashleykay · Virtual Interior Design</p>
+  </footer>
+</section>
+
+<!-- ══ QUESTIONNAIRE ══ -->
+<section id="questionnaire">
+  <div class="q-hero">
+    <div class="section-label" style="color:var(--gold);margin-bottom:10px;">Client Intake</div>
+    <h2>Let's design your space.</h2>
+    <p>Takes about 3 minutes. The more you share, the better your design will be.</p>
+  </div>
+
+  <div class="q-wrap">
+    <!-- progress -->
+    <div class="q-progress" id="qProgress">
+      <div class="q-step-dot active" id="dot0">1</div>
+      <div class="q-line" id="line0"></div>
+      <div class="q-step-dot future" id="dot1">2</div>
+      <div class="q-line" id="line1"></div>
+      <div class="q-step-dot future" id="dot2">3</div>
+      <div class="q-line" id="line2"></div>
+      <div class="q-step-dot future" id="dot3">4</div>
+      <div class="q-line" id="line3"></div>
+      <div class="q-step-dot future" id="dot4">5</div>
+    </div>
+
+    <!-- PAGE 1 -->
+    <div class="q-page active" id="qp0">
+      <div class="q-page-label">Step 1 of 5</div>
+      <div class="q-page-title">About you</div>
+      <div class="q-page-sub">Let's start with the basics so Ashley can personalize everything.</div>
+      <div class="q-grid">
+        <div class="q-field">
+          <label class="q-label">First Name</label>
+          <input class="q-input" id="q_name" placeholder="e.g. Sarah"/>
+        </div>
+        <div class="q-field">
+          <label class="q-label">Email Address</label>
+          <input class="q-input" id="q_email" type="email" placeholder="sarah@email.com"/>
+        </div>
+        <div class="q-field">
+          <label class="q-label">Instagram Handle (optional)</label>
+          <input class="q-input" id="q_instagram" placeholder="@yourusername"/>
+        </div>
+        <div class="q-field">
+          <label class="q-label">Location (City, State)</label>
+          <input class="q-input" id="q_location" placeholder="e.g. Austin, TX"/>
+        </div>
+      </div>
+      <div class="q-field" style="margin-top:16px;">
+        <label class="q-label">Are you a homeowner or renter?</label>
+        <select class="q-select" id="q_ownership">
+          <option value="">Select one...</option>
+          <option>Homeowner — I can paint, drill, make changes</option>
+          <option>Renter — no permanent changes please</option>
+          <option>Just moved in — still figuring it out</option>
+        </select>
+      </div>
+      <div class="q-nav">
+        <button class="q-btn-next" onclick="qNext(0)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="q-page" id="qp1">
+      <div class="q-page-label">Step 2 of 5</div>
+      <div class="q-page-title">Your package & rooms</div>
+      <div class="q-page-sub">Which package are you booking, and which rooms need the most love?</div>
+      <div class="q-field">
+        <label class="q-label">Which package?</label>
+        <div class="pkg-select-cards">
+          <div class="pkg-select-card" id="psc_refresh" onclick="selectPackage('refresh')">
+            <div><div class="pkg-sc-name">The Refresh</div><div class="pkg-sc-desc">1 room · 5–7 days</div></div>
+            <div class="pkg-sc-price">$149–$199</div>
+          </div>
+          <div class="pkg-select-card" id="psc_revamp" onclick="selectPackage('revamp')">
+            <div><div class="pkg-sc-name">The Revamp</div><div class="pkg-sc-desc">2 rooms · 7–10 days</div></div>
+            <div class="pkg-sc-price">$349–$499</div>
+          </div>
+          <div class="pkg-select-card" id="psc_homeedit" onclick="selectPackage('homeedit')">
+            <div><div class="pkg-sc-name">The Home Edit</div><div class="pkg-sc-desc">Up to 5 rooms · 14–21 days</div></div>
+            <div class="pkg-sc-price">$799–$1,299</div>
+          </div>
+        </div>
+      </div>
+      <div class="q-field" style="margin-top:24px;">
+        <label class="q-label">Which rooms? (select all that apply)</label>
+        <div class="rooms-grid" id="roomsGrid">
+          <div class="room-chip" onclick="toggleRoom(this,'Living Room')"><div class="room-icon">🛋️</div><div class="room-name">Living Room</div></div>
+          <div class="room-chip" onclick="toggleRoom(this,'Bedroom')"><div class="room-icon">🛏️</div><div class="room-name">Bedroom</div></div>
+          <div class="room-chip" onclick="toggleRoom(this,'Dining Room')"><div class="room-icon">🍽️</div><div class="room-name">Dining Room</div></div>
+          <div class="room-chip" onclick="toggleRoom(this,'Home Office')"><div class="room-icon">💼</div><div class="room-name">Home Office</div></div>
+          <div class="room-chip" onclick="toggleRoom(this,'Kitchen')"><div class="room-icon">🍳</div><div class="room-name">Kitchen</div></div>
+          <div class="room-chip" onclick="toggleRoom(this,'Entryway')"><div class="room-icon">🚪</div><div class="room-name">Entryway</div></div>
+          <div class="room-chip" onclick="toggleRoom(this,'Nursery')"><div class="room-icon">🌿</div><div class="room-name">Nursery</div></div>
+          <div class="room-chip" onclick="toggleRoom(this,'Bathroom')"><div class="room-icon">🛁</div><div class="room-name">Bathroom</div></div>
+          <div class="room-chip" onclick="toggleRoom(this,'Outdoor')"><div class="room-icon">🌤️</div><div class="room-name">Outdoor</div></div>
+        </div>
+      </div>
+      <div class="q-nav">
+        <button class="q-btn-back" onclick="qBack(1)">← Back</button>
+        <button class="q-btn-next" onclick="qNext(1)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="q-page" id="qp2">
+      <div class="q-page-label">Step 3 of 5</div>
+      <div class="q-page-title">Your style & vibe</div>
+      <div class="q-page-sub">What does your dream room feel like? Pick everything that resonates.</div>
+      <div class="q-field">
+        <label class="q-label">Design Aesthetic (pick all that feel right)</label>
+        <div class="style-chips" id="styleChips">
+          <div class="style-chip" onclick="toggleChip(this)">Warm & Earthy</div>
+          <div class="style-chip" onclick="toggleChip(this)">Bold Maximalist</div>
+          <div class="style-chip" onclick="toggleChip(this)">Cozy Minimal</div>
+          <div class="style-chip" onclick="toggleChip(this)">Modern & Clean</div>
+          <div class="style-chip" onclick="toggleChip(this)">Boho & Eclectic</div>
+          <div class="style-chip" onclick="toggleChip(this)">Coastal & Breezy</div>
+          <div class="style-chip" onclick="toggleChip(this)">Glam & Luxe</div>
+          <div class="style-chip" onclick="toggleChip(this)">Scandinavian</div>
+          <div class="style-chip" onclick="toggleChip(this)">Vintage & Retro</div>
+          <div class="style-chip" onclick="toggleChip(this)">Japandi</div>
+        </div>
+      </div>
+      <div class="q-field" style="margin-top:24px;">
+        <label class="q-label">Total Furniture Budget for This Project</label>
+        <select class="q-select" id="q_budget">
+          <option value="">Select a range...</option>
+          <option>Under $500</option>
+          <option>$500–$1,500</option>
+          <option>$1,500–$3,000</option>
+          <option>$3,000–$6,000</option>
+          <option>$6,000+</option>
+          <option>Flexible — just make it beautiful</option>
+        </select>
+      </div>
+      <div class="q-field" style="margin-top:16px;">
+        <label class="q-label">Name 1–3 accounts or spaces you love (Instagram, Pinterest, anywhere)</label>
+        <textarea class="q-textarea" id="q_inspo" placeholder="e.g. @studiomcgee, @amber_interiors — or just describe: 'warm neutrals with lots of plants and linen'"></textarea>
+      </div>
+      <div class="q-nav">
+        <button class="q-btn-back" onclick="qBack(2)">← Back</button>
+        <button class="q-btn-next" onclick="qNext(2)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- PAGE 4 -->
+    <div class="q-page" id="qp3">
+      <div class="q-page-label">Step 4 of 5</div>
+      <div class="q-page-title">Your space, your life</div>
+      <div class="q-page-sub">The best designs are built around how you actually live.</div>
+      <div class="q-field">
+        <label class="q-label">What's the biggest problem with your room right now?</label>
+        <textarea class="q-textarea" id="q_problem" placeholder="e.g. It feels dark and cluttered. Nothing matches. It looks like a furniture store, not a home."></textarea>
+      </div>
+      <div class="q-field">
+        <label class="q-label">How do you use this space day-to-day?</label>
+        <textarea class="q-textarea" id="q_usage" placeholder="e.g. Work from home here, two kids, dog, lots of guests on weekends. Need it to be functional AND beautiful."></textarea>
+      </div>
+      <div class="q-field">
+        <label class="q-label">What's already in the room that you want to keep?</label>
+        <textarea class="q-textarea" id="q_keep" placeholder="e.g. I love my sofa but hate everything else. The rug can go. The lamp was a gift so it has to stay."></textarea>
+      </div>
+      <div class="q-field">
+        <label class="q-label">Anything you absolutely hate or want to avoid?</label>
+        <input class="q-input" id="q_hate" placeholder="e.g. No all-grey anything. No farmhouse. No matching sets."/>
+      </div>
+      <div class="q-nav">
+        <button class="q-btn-back" onclick="qBack(3)">← Back</button>
+        <button class="q-btn-next" onclick="qNext(3)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- PAGE 5 — REVIEW & SUBMIT -->
+    <div class="q-page" id="qp4">
+      <div class="q-page-label">Step 5 of 5</div>
+      <div class="q-page-title">Review & send</div>
+      <div class="q-page-sub">Here's everything Ashley will receive. Look good? Hit send.</div>
+      <div class="q-summary" id="qSummary"></div>
+      <div class="q-field">
+        <label class="q-label">Anything else Ashley should know?</label>
+        <textarea class="q-textarea" id="q_extra" placeholder="Any other context, questions, or notes for Ashley..."></textarea>
+      </div>
+      <div class="q-nav" style="flex-direction:column;gap:10px;">
+        <button class="q-submit" onclick="submitQ()">✦ Send to Ashley</button>
+        <button class="q-btn-back" onclick="qBack(4)" style="width:100%;text-align:center;">← Go Back & Edit</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="q-success" id="qSuccess">
+      <div class="q-success-icon">🌿</div>
+      <h3>You're in Ashley's queue.</h3>
+      <p>Your questionnaire has been received. Ashley will be in touch within 24 hours to confirm your package and next steps.</p>
+      <p style="margin-top:12px;font-size:12px;color:var(--muted);">While you wait, try the Mood Board Generator to preview your vibe.</p>
+      <button class="btn-primary" style="margin-top:24px;" onclick="showSection('moodboard')">Try Mood Board Generator</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MOOD BOARD ══ -->
+<section id="moodboard">
+  <div class="mb-hero">
+    <div class="section-label" style="color:var(--gold);margin-bottom:10px;">AI-Powered</div>
+    <h2>Mood Board Generator</h2>
+    <p>Enter your details and get a custom room design with real, shoppable products in seconds.</p>
+  </div>
+
+  <div class="mb-wrap">
+    <!-- form -->
+    <div id="mbForm">
+      <div class="mb-form-grid">
+        <div class="mb-field">
+          <label class="mb-label">Room Type</label>
+          <select class="mb-select" id="mb_room">
+            <option>Living Room</option><option>Bedroom</option>
+            <option>Home Office</option><option>Dining Room</option>
+            <option>Entryway</option><option>Nursery</option>
+          </select>
+        </div>
+        <div class="mb-field">
+          <label class="mb-label">Budget Range</label>
+          <select class="mb-select" id="mb_budget">
+            <option>Under $500</option><option>$500–$1,500</option>
+            <option>$1,500–$3,000</option><option>$3,000–$6,000</option><option>$6,000+</option>
+          </select>
+        </div>
+        <div class="mb-field">
+          <label class="mb-label">Design Vibe</label>
+          <select class="mb-select" id="mb_vibe">
+            <option>Warm & Earthy (terracotta, linen, wood)</option>
+            <option>Bold & Maximalist (jewel tones, patterns, brass)</option>
+            <option>Cozy Minimal (neutrals, soft textures)</option>
+            <option>Modern & Clean (white, black, sleek)</option>
+            <option>Boho (rattan, plants, layered rugs)</option>
+            <option>Coastal (natural, breezy, light)</option>
+            <option>Glam (velvet, gold, mirrors)</option>
+            <option>Scandinavian (light wood, simple)</option>
+          </select>
+        </div>
+        <div class="mb-field">
+          <label class="mb-label">Your Name (optional)</label>
+          <input class="mb-input" id="mb_name" placeholder="e.g. Sarah M."/>
+        </div>
+        <div class="mb-field mb-full">
+          <label class="mb-label">Special notes (renter, has kids, hates beige…)</label>
+          <textarea class="mb-textarea" id="mb_notes" placeholder="e.g. Renter — no paint or nails. Has two dogs. Loves plants."></textarea>
+        </div>
+      </div>
+      <button class="mb-generate" id="mbGenBtn" onclick="generateBoard()">✦ Generate My Mood Board</button>
+      <div class="mb-error" id="mbError"></div>
+    </div>
+
+    <!-- loading -->
+    <div class="mb-loading" id="mbLoading">
+      <div class="mb-spinner"></div>
+      <p>Ashley is designing your room…</p>
+    </div>
+
+    <!-- result -->
+    <div class="mb-result" id="mbResult"></div>
+  </div>
+</section>
+
+<script>
+// ── NAVIGATION ──
+function showSection(id){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleMenu(){
+  document.getElementById('navLinks').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('navLinks').classList.remove('open');
+}
+
+// ── QUESTIONNAIRE ──
+let qData={};
+let selectedRooms=[];
+let selectedStyles=[];
+let selectedPkg='';
+let currentStep=0;
+
+function setPackage(pkg){
+  setTimeout(()=>selectPackage(pkg),100);
+}
+
+function selectPackage(pkg){
+  selectedPkg=pkg;
+  document.querySelectorAll('.pkg-select-card').forEach(c=>c.classList.remove('selected'));
+  const el=document.getElementById('psc_'+pkg);
+  if(el)el.classList.add('selected');
+}
+
+function toggleRoom(el,name){
+  el.classList.toggle('selected');
+  if(selectedRooms.includes(name)) selectedRooms=selectedRooms.filter(r=>r!==name);
+  else selectedRooms.push(name);
+}
+
+function toggleChip(el){
+  el.classList.toggle('selected');
+  const s=el.textContent;
+  if(selectedStyles.includes(s)) selectedStyles=selectedStyles.filter(x=>x!==s);
+  else selectedStyles.push(s);
+}
+
+function updateProgress(step){
+  for(let i=0;i<5;i++){
+    const dot=document.getElementById('dot'+i);
+    if(i<step){dot.className='q-step-dot done';dot.textContent='✓';}
+    else if(i===step){dot.className='q-step-dot active';dot.textContent=i+1;}
+    else{dot.className='q-step-dot future';dot.textContent=i+1;}
+    if(i<4){
+      const line=document.getElementById('line'+i);
+      line.className=i<step?'q-line done':'q-line';
+    }
+  }
+}
+
+function qNext(from){
+  if(from===4)return;
+  document.getElementById('qp'+from).classList.remove('active');
+  const next=from+1;
+  currentStep=next;
+  updateProgress(next);
+  const page=document.getElementById('qp'+next);
+  page.classList.add('active');
+  if(next===4) buildSummary();
+  window.scrollTo({top:document.querySelector('.q-hero').offsetHeight+80,behavior:'smooth'});
+}
+
+function qBack(from){
+  document.getElementById('qp'+from).classList.remove('active');
+  const prev=from-1;
+  currentStep=prev;
+  updateProgress(prev);
+  document.getElementById('qp'+prev).classList.add('active');
+}
+
+function buildSummary(){
+  const pkgNames={refresh:'The Refresh ($149–$199)',revamp:'The Revamp ($349–$499)',homeedit:'The Home Edit ($799–$1,299)'};
+  const rows=[
+    {label:'Name',val:document.getElementById('q_name').value||'—'},
+    {label:'Email',val:document.getElementById('q_email').value||'—'},
+    {label:'Location',val:document.getElementById('q_location').value||'—'},
+    {label:'Ownership',val:document.getElementById('q_ownership').value||'—'},
+    {label:'Package',val:pkgNames[selectedPkg]||'—'},
+    {label:'Rooms',val:selectedRooms.join(', ')||'—'},
+    {label:'Style',val:selectedStyles.join(', ')||'—'},
+    {label:'Budget',val:document.getElementById('q_budget').value||'—'},
+    {label:'Inspiration',val:document.getElementById('q_inspo').value||'—'},
+    {label:'Main Problem',val:document.getElementById('q_problem').value||'—'},
+    {label:'Daily Usage',val:document.getElementById('q_usage').value||'—'},
+    {label:'Keeping',val:document.getElementById('q_keep').value||'—'},
+    {label:'Avoid',val:document.getElementById('q_hate').value||'—'},
+  ];
+  document.getElementById('qSummary').innerHTML=rows.map(r=>`
+    <div class="q-summary-item">
+      <span class="q-summary-label">${r.label}</span>
+      <span class="q-summary-val">${r.val}</span>
+    </div>`).join('');
+}
+
+function submitQ(){
+  document.getElementById('qp4').style.display='none';
+  document.getElementById('qProgress').style.display='none';
+  document.getElementById('qSuccess').classList.add('show');
+}
+
+// ── MOOD BOARD GENERATOR ──
+async function generateBoard(){
+  const room=document.getElementById('mb_room').value;
+  const budget=document.getElementById('mb_budget').value;
+  const vibe=document.getElementById('mb_vibe').value;
+  const name=document.getElementById('mb_name').value||'Your Client';
+  const notes=document.getElementById('mb_notes').value||'No special notes.';
+
+  document.getElementById('mbForm').style.display='none';
+  document.getElementById('mbLoading').style.display='block';
+  document.getElementById('mbResult').style.display='none';
+  document.getElementById('mbError').style.display='none';
+
+  const prompt=`You are Ashley Kay, a virtual interior designer. Generate a custom mood board for a client.
+DETAILS:
+- Room: ${room}
+- Budget: ${budget}
+- Vibe: ${vibe}
+- Client: ${name}
+- Notes: ${notes}
+Return ONLY valid JSON (no markdown, no backticks) in this exact structure:
+{"title":"Short evocative room title","subtitle":"One sentence describing the feel","palette":[{"name":"Color name","hex":"#hexcode"},{"name":"Color name","hex":"#hexcode"},{"name":"Color name","hex":"#hexcode"},{"name":"Color name","hex":"#hexcode"},{"name":"Color name","hex":"#hexcode"}],"products":[{"category":"Anchor Piece","name":"Specific product name","store":"West Elm or Pottery Barn or Amazon or IKEA or Target or Home Depot or Wayfair","price":"$XXX–$XXX","emoji":"emoji","note":"Ashley 2-sentence designer tip","searchQuery":"search query for store"}],"totalEstimate":"$XXX–$XXX","budgetPercent":65,"rules":["Rule 1","Rule 2","Rule 3","Rule 4","Rule 5"]}
+Include exactly 6 products: anchor piece, rug, accent table, lighting, throw pillows, and one decor accent. Make stores real US retailers. Rules must be specific to THIS room and client.`;
+
+  try{
+    const res=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:prompt}]})
+    });
+    const data=await res.json();
+    const raw=data.content.map(b=>b.text||'').join('');
+    const clean=raw.replace(/```json|```/g,'').trim();
+    const board=JSON.parse(clean);
+    renderBoard(board,room,name);
+  }catch(err){
+    document.getElementById('mbForm').style.display='block';
+    document.getElementById('mbLoading').style.display='none';
+    const e=document.getElementById('mbError');
+    e.style.display='block';
+    e.textContent='Something went wrong. Please try again.';
+  }
+}
+
+const storeUrls={
+  'West Elm':'https://www.westelm.com/search/results.html?words=',
+  'Pottery Barn':'https://www.potterybarn.com/search/results.html?words=',
+  'Amazon':'https://www.amazon.com/s?k=',
+  'IKEA':'https://www.ikea.com/us/en/search/?q=',
+  'Target':'https://www.target.com/s?searchTerm=',
+  'Home Depot':'https://www.homedepot.com/s/',
+  'Wayfair':'https://www.wayfair.com/keyword.php?keyword=',
+};
+
+function renderBoard(board,room,name){
+  document.getElementById('mbLoading').style.display='none';
+  const palette=board.palette.map(c=>`<div class="swatch"><div class="swatch-dot" style="background:${c.hex}"></div><span>${c.name}</span></div>`).join('');
+  const products=board.products.map((p,i)=>{
+    const base=storeUrls[p.store]||'https://www.google.com/search?q=';
+    const link=base+encodeURIComponent(p.searchQuery||p.name);
+    return `<div class="prod-card" id="pc${i}" onclick="toggleProd(${i})">
+      <div class="prod-top">
+        <div class="prod-left">
+          <div class="prod-icon">${p.emoji}</div>
+          <div><div class="prod-cat">${p.category}</div><div class="prod-name">${p.name}</div><div class="prod-store">${p.store}</div></div>
+        </div>
+        <div class="prod-price">${p.price}</div>
+      </div>
+      <div class="prod-detail" id="pd${i}">
+        <div class="prod-note">💬 ${p.note}</div>
+        <a class="prod-link" href="${link}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Shop on ${p.store} →</a>
+      </div>
+    </div>`;
+  }).join('');
+  const rules=board.rules.map((r,i)=>`<div class="rule-row"><div class="rule-n">${i+1}</div><div class="rule-t">${r}</div></div>`).join('');
+  const pct=Math.min(board.budgetPercent||65,100);
+
+  document.getElementById('mbResult').innerHTML=`
+    <div class="board-header">
+      <div class="board-tag">${name} · ${room}</div>
+      <div class="board-title">${board.title}</div>
+      <div class="board-subtitle">${board.subtitle}</div>
+    </div>
+    <div class="palette">${palette}</div>
+    <div class="products-list">${products}</div>
+    <div class="budget-box">
+      <div class="budget-label">Estimated Total</div>
+      <div class="budget-amount">${board.totalEstimate}</div>
+      <div class="budget-sub">Tap any item for designer notes + shop link</div>
+      <div class="bar-track"><div class="bar-fill" id="barFill" style="width:0%"></div></div>
+    </div>
+    <div class="rules-box">
+      <div class="rules-label">Ashley's Rules for This Room</div>
+      ${rules}
+    </div>
+    <div class="mb-actions">
+      <button class="btn-new-board" onclick="resetBoard()">← Generate Another Board</button>
+      <button class="btn-save-pdf" id="pdfBtn" onclick="downloadPDF()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg>
+        Download as PDF
+      </button>
+      <button class="btn-book-pkg" style="border-radius:8px;" onclick="showSection('questionnaire')">Book a Full Package →</button>
+    </div>`;
+
+  document.getElementById('mbResult').style.display='block';
+  setTimeout(()=>{const b=document.getElementById('barFill');if(b)b.style.width=pct+'%';},400);
+}
+
+function toggleProd(i){
+  document.getElementById('pc'+i).classList.toggle('open');
+  document.getElementById('pd'+i).classList.toggle('open');
+}
+
+function resetBoard(){
+  document.getElementById('mbResult').style.display='none';
+  document.getElementById('mbForm').style.display='block';
+  const btn=document.getElementById('mbGenBtn');
+  if(btn){btn.disabled=false;btn.textContent='✦ Generate My Mood Board';}
+}
+
+async function downloadPDF(){
+  const btn=document.getElementById('pdfBtn');
+  btn.disabled=true;btn.textContent='Preparing PDF…';
+  document.querySelectorAll('.prod-detail').forEach(d=>d.classList.add('open'));
+  document.querySelectorAll('.prod-card').forEach(c=>c.classList.add('open'));
+  document.querySelectorAll('.mb-actions').forEach(a=>a.style.display='none');
+  try{
+    const el=document.getElementById('mbResult');
+    const canvas=await html2canvas(el,{scale:2,useCORS:true,backgroundColor:'#FAF7F2',scrollY:-window.scrollY,windowWidth:700});
+    const {jsPDF}=window.jspdf;
+    const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+    const pw=pdf.internal.pageSize.getWidth();
+    const ph=pdf.internal.pageSize.getHeight();
+    const iw=pw;
+    const ih=(canvas.height*iw)/canvas.width;
+    const img=canvas.toDataURL('image/jpeg',0.92);
+    let y=0;
+    while(y<ih){if(y>0)pdf.addPage();pdf.addImage(img,'JPEG',0,-y,iw,ih);y+=ph;}
+    const pages=pdf.internal.getNumberOfPages();
+    for(let i=1;i<=pages;i++){
+      pdf.setPage(i);pdf.setFontSize(8);pdf.setTextColor(107,101,88);
+      pdf.text('@homedesignswithashleykay · Virtual Interior Design',pw/2,ph-5,{align:'center'});
+    }
+    const titleEl=document.querySelector('.board-title');
+    const safe=(titleEl?titleEl.textContent:'MoodBoard').replace(/[^a-z0-9]/gi,'_');
+    pdf.save('AshleyKay_'+safe+'.pdf');
+  }catch(e){alert('Could not generate PDF. Try browser Print → Save as PDF.');}
+  finally{
+    document.querySelectorAll('.mb-actions').forEach(a=>a.style.display='');
+    btn.disabled=false;
+    btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg> Download as PDF';
+  }
+}
+</script>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="booking-hero">
+    <div class="section-label" style="color:var(--gold);margin-bottom:10px;">Book a Call</div>
+    <h2>Let's talk about your space.</h2>
+    <p>Pick your package, then book a free 15-min discovery call — or skip straight to the questionnaire.</p>
+  </div>
+  <div class="booking-wrap">
+    <div class="section-label" style="margin-bottom:16px;">Step 1 — Which package?</div>
+    <div class="booking-which">
+      <button class="booking-pkg-btn" id="bpb_refresh" onclick="selectBookingPkg('refresh',this)">
+        <div class="bpb-name">The Refresh</div>
+        <div class="bpb-price">$149 – $199</div>
+        <div class="bpb-note">1 room · 5–7 days</div>
+      </button>
+      <button class="booking-pkg-btn active" id="bpb_revamp" onclick="selectBookingPkg('revamp',this)">
+        <div class="bpb-name">The Revamp ★ Most Popular</div>
+        <div class="bpb-price">$349 – $499</div>
+        <div class="bpb-note">2 rooms · call included · 7–10 days</div>
+      </button>
+      <button class="booking-pkg-btn" id="bpb_homeedit" onclick="selectBookingPkg('homeedit',this)">
+        <div class="bpb-name">The Home Edit</div>
+        <div class="bpb-price">$799 – $1,299</div>
+        <div class="bpb-note">Up to 5 rooms · 14–21 days</div>
+      </button>
+    </div>
+    <div class="section-label" style="margin-bottom:16px;">Step 2 — Book your call</div>
+    <div class="calendly-section">
+      <div class="calendly-header">
+        <div>
+          <h3>Free 15-Min Discovery Call</h3>
+          <p>Via Zoom · No commitment · Just a conversation about your space</p>
+        </div>
+        <div class="selected-pkg-badge" id="selectedPkgBadge">The Revamp</div>
+      </div>
+      <div class="calendly-embed-wrap">
+        <div class="calendly-placeholder">
+          <div class="cal-icon">📅</div>
+          <h4>Connect your Calendly in 3 steps</h4>
+          <p>Once connected, clients pick a time directly here — no back-and-forth DMs.</p>
+          <div class="cal-steps">
+            <div class="cal-step-row"><div class="cal-step-num">1</div><div class="cal-step-text">Go to <strong>calendly.com</strong> → create a free account and set your availability</div></div>
+            <div class="cal-step-row"><div class="cal-step-num">2</div><div class="cal-step-text">Create a <strong>"15 Min Discovery Call"</strong> event type with Zoom link</div></div>
+            <div class="cal-step-row"><div class="cal-step-num">3</div><div class="cal-step-text">Copy your link and replace <strong>YOUR_CALENDLY_URL</strong> in this file with it</div></div>
+          </div>
+          <a class="btn-open-calendly" href="https://calendly.com/YOUR_CALENDLY_URL" target="_blank" id="calendlyLink">📅 Book a Free Discovery Call</a>
+          <p style="margin-top:20px;font-size:11px;color:var(--muted);">Rather skip the call?</p>
+          <button onclick="showSection('questionnaire')" style="margin-top:8px;padding:10px 24px;background:transparent;border:1.5px solid rgba(30,58,47,0.2);color:var(--forest);border-radius:6px;font-family:'Jost',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;">Fill Questionnaire Instead →</button>
+        </div>
+      </div>
+    </div>
+    <div class="booking-faq">
+      <h3>Before you book</h3>
+      <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Do I need to prepare anything for the call? <span class="faq-arrow">▼</span></div><div class="faq-a">Nope — just show up. Ashley will ask about your space, style, and what's not working. Photos or inspiration images are welcome but not required.</div></div>
+      <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">What happens after the call? <span class="faq-arrow">▼</span></div><div class="faq-a">Ashley sends a package confirmation, invoice via Stripe or PayPal, and your client questionnaire. Once payment is received your project goes into the queue and the turnaround clock starts.</div></div>
+      <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Can I skip the call and go straight to booking? <span class="faq-arrow">▼</span></div><div class="faq-a">Absolutely. The Refresh doesn't include a call at all — fill the questionnaire, submit photos, and Ashley gets started. Simple.</div></div>
+      <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">How do I pay? <span class="faq-arrow">▼</span></div><div class="faq-a">Ashley invoices via Stripe or PayPal after your call. Full payment due before the project begins. For The Home Edit, a 50% deposit is accepted with the balance due on delivery.</div></div>
+      <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">What if I'm not happy with my design? <span class="faq-arrow">▼</span></div><div class="faq-a">Every package includes revision rounds — 1 for The Refresh, 2 for The Revamp, 3 for The Home Edit. Extra rounds can be added for $50 each.</div></div>
+      <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">I'm a renter — can Ashley still design my space? <span class="faq-arrow">▼</span></div><div class="faq-a">Yes, and this is a specialty. Note it in the questionnaire and Ashley will design entirely around renter-friendly solutions: peel-and-stick, removable, deposit-safe — nothing permanent.</div></div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-logo">Home Designs with <em>Ashley Kay</em></div>
+    <div class="footer-links">
+      <a onclick="showSection('home')">Home</a>
+      <a onclick="showSection('packages')">Packages</a>
+      <a onclick="showSection('questionnaire')">Questionnaire</a>
+      <a onclick="showSection('moodboard')">Mood Board</a>
+      <a onclick="showSection('booking')">Book a Call</a>
+    </div>
+    <p>@homedesignswithashleykay · Virtual Interior Design</p>
+  </footer>
+</section>
+
+</body>
+</html>

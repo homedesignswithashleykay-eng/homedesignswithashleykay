@@ -1177,14 +1177,9 @@ function saveToAdmin(data){
 }
 
 function sendToAshley(data){
+  // Save directly to admin portal via localStorage — no email popup
   saveToAdmin(data);
-  if(FORMSPREE_ID==='YOUR_FORMSPREE_ID'){
-    var subject=encodeURIComponent('New Client - '+(data.name||'Website'));
-    var body=encodeURIComponent(Object.keys(data).map(function(k){return k+': '+data[k];}).join('\n\n'));
-    window.open('mailto:homedesignswithashleykay@gmail.com?subject='+subject+'&body='+body);
-    return Promise.resolve(true);
-  }
-  return fetch('https://formspree.io/f/'+FORMSPREE_ID,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)}).then(function(r){return r.ok;}).catch(function(){return false;});
+  return Promise.resolve(true);
 }
 
 // ── QUESTIONNAIRE ──

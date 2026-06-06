@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ashley Kay · Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --forest:#1E3A2F;--forest-deep:#152B22;--gold:#B8974A;--gold-light:#D4B06A;
+  --cream:#F5F0E8;--warm-white:#FAF7F2;--text:#1C1C1A;--muted:#6B6558;
+  --green:#2D6A4F;--amber:#E9A100;--blue:#2D5986;--red:#C0392B;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Jost',sans-serif;background:var(--warm-white);color:var(--text);min-height:100vh;}
+
+/* LOGIN */
+#loginScreen{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,var(--forest-deep),var(--forest));
+  padding:24px;
+}
+.login-box{
+  background:#FFF;border-radius:20px;padding:48px 40px;
+  width:100%;max-width:380px;text-align:center;
+  box-shadow:0 24px 80px rgba(0,0,0,0.3);
+}
+.login-logo{
+  font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;
+  color:var(--forest-deep);margin-bottom:6px;
+}
+.login-logo em{color:var(--gold);font-style:italic;}
+.login-sub{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:36px;}
+.login-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);display:block;text-align:left;margin-bottom:8px;}
+.login-input{
+  width:100%;padding:14px 16px;background:var(--warm-white);
+  border:1.5px solid rgba(30,58,47,0.15);border-radius:8px;
+  font-family:'Jost',sans-serif;font-size:15px;color:var(--text);
+  outline:none;transition:border-color 0.2s;letter-spacing:2px;
+  margin-bottom:20px;
+}
+.login-input:focus{border-color:var(--forest);}
+.login-btn{
+  width:100%;padding:15px;background:var(--forest);color:#FFF;
+  border:none;border-radius:8px;font-family:'Jost',sans-serif;
+  font-size:12px;letter-spacing:3px;text-transform:uppercase;font-weight:600;
+  cursor:pointer;transition:all 0.2s;
+}
+.login-btn:hover{background:var(--forest-deep);}
+.login-error{color:var(--red);font-size:13px;margin-top:12px;display:none;}
+.login-hint{font-size:11px;color:var(--muted);margin-top:20px;line-height:1.6;}
+
+/* ADMIN SHELL */
+#adminShell{display:none;}
+
+/* TOP BAR */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:var(--forest-deep);padding:14px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(184,151,74,0.2);
+}
+.topbar-logo{font-family:'Cormorant Garamond',serif;font-size:17px;color:#FFF8F0;}
+.topbar-logo em{color:var(--gold);font-style:italic;}
+.topbar-right{display:flex;align-items:center;gap:20px;}
+.topbar-badge{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(245,240,232,0.5);}
+.btn-logout{
+  padding:7px 16px;background:transparent;border:1px solid rgba(245,240,232,0.25);
+  color:rgba(245,240,232,0.7);border-radius:6px;font-family:'Jost',sans-serif;
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;
+  transition:all 0.2s;
+}
+.btn-logout:hover{border-color:var(--gold);color:var(--gold);}
+
+/* MAIN */
+.admin-main{padding:90px 32px 60px;max-width:1200px;margin:0 auto;}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:36px;}
+.stat-card{background:#FFF;border-radius:12px;padding:20px 22px;border:1px solid rgba(30,58,47,0.08);}
+.stat-card-num{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;line-height:1;margin-bottom:4px;}
+.stat-card-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);}
+.stat-card-sub{font-size:12px;color:var(--muted);margin-top:6px;}
+.c-gold{color:var(--gold);}
+.c-green{color:var(--green);}
+.c-blue{color:var(--blue);}
+.c-forest{color:var(--forest);}
+
+/* SEARCH + ACTIONS BAR */
+.toolbar{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap;align-items:center;}
+.search-input{
+  flex:1;min-width:200px;padding:11px 16px;
+  background:#FFF;border:1.5px solid rgba(30,58,47,0.12);
+  border-radius:8px;font-family:'Jost',sans-serif;font-size:14px;
+  color:var(--text);outline:none;transition:border-color 0.2s;
+}
+.search-input:focus{border-color:var(--forest);}
+.btn-add{
+  padding:11px 20px;background:var(--gold);color:var(--forest-deep);
+  border:none;border-radius:8px;font-family:'Jost',sans-serif;
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;
+  cursor:pointer;transition:all 0.2s;white-space:nowrap;
+}
+.btn-add:hover{background:var(--gold-light);}
+.btn-export{
+  padding:11px 20px;background:transparent;border:1.5px solid rgba(30,58,47,0.15);
+  color:var(--forest);border-radius:8px;font-family:'Jost',sans-serif;
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:500;
+  cursor:pointer;transition:all 0.2s;white-space:nowrap;
+}
+.btn-export:hover{background:var(--forest);color:#FFF;}
+
+/* PACKAGE TABS */
+.pkg-tabs{display:flex;gap:0;border-bottom:2px solid rgba(30,58,47,0.08);margin-bottom:28px;overflow-x:auto;}
+.pkg-tab{
+  padding:12px 24px;font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  font-weight:500;color:var(--muted);cursor:pointer;white-space:nowrap;
+  border-bottom:2px solid transparent;margin-bottom:-2px;transition:all 0.2s;
+  background:none;border-top:none;border-left:none;border-right:none;
+  font-family:'Jost',sans-serif;
+}
+.pkg-tab.active{color:var(--forest);border-bottom-color:var(--gold);}
+.pkg-tab:hover{color:var(--forest);}
+.tab-count{
+  display:inline-block;margin-left:6px;padding:2px 7px;
+  background:rgba(30,58,47,0.08);border-radius:20px;
+  font-size:10px;color:var(--muted);font-weight:600;
+}
+.pkg-tab.active .tab-count{background:var(--gold);color:var(--forest-deep);}
+
+/* SUBMISSION CARDS */
+.submissions-grid{display:grid;gap:14px;}
+.sub-card{
+  background:#FFF;border-radius:14px;
+  border:1.5px solid rgba(30,58,47,0.08);
+  overflow:hidden;transition:box-shadow 0.2s;
+}
+.sub-card:hover{box-shadow:0 4px 20px rgba(30,58,47,0.08);}
+.sub-card-header{
+  padding:18px 22px;display:flex;align-items:center;
+  justify-content:space-between;gap:12px;cursor:pointer;
+  flex-wrap:wrap;
+}
+.sub-card-left{display:flex;align-items:center;gap:14px;}
+.sub-avatar{
+  width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:700;color:#FFF;flex-shrink:0;
+}
+.sub-name{font-size:15px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.sub-meta{font-size:12px;color:var(--muted);}
+.sub-card-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.status-badge{
+  padding:5px 12px;border-radius:20px;font-size:10px;
+  font-weight:700;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;
+}
+.status-new{background:rgba(45,106,79,0.12);color:var(--green);}
+.status-progress{background:rgba(233,161,0,0.12);color:var(--amber);}
+.status-delivered{background:rgba(30,58,47,0.08);color:var(--muted);}
+.status-revision{background:rgba(45,89,134,0.12);color:var(--blue);}
+.sub-date{font-size:11px;color:var(--muted);white-space:nowrap;}
+.sub-chevron{color:var(--gold);transition:transform 0.2s;font-size:14px;flex-shrink:0;}
+.sub-card.open .sub-chevron{transform:rotate(180deg);}
+
+/* EXPANDED DETAIL */
+.sub-detail{display:none;border-top:1px solid rgba(30,58,47,0.07);}
+.sub-card.open .sub-detail{display:block;}
+.sub-detail-inner{padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+@media(max-width:600px){.sub-detail-inner{grid-template-columns:1fr;}}
+.detail-section{}
+.detail-section-title{
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:12px;font-weight:600;
+}
+.detail-row{margin-bottom:10px;}
+.detail-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
+.detail-val{font-size:13px;color:var(--text);line-height:1.5;}
+.detail-val.empty{color:var(--muted);font-style:italic;}
+
+/* STATUS SELECTOR */
+.status-select-row{
+  padding:16px 22px;border-top:1px solid rgba(30,58,47,0.07);
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--warm-white);
+}
+.status-select-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+.status-btn{
+  padding:7px 14px;border-radius:6px;font-family:'Jost',sans-serif;
+  font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+  cursor:pointer;border:1.5px solid transparent;transition:all 0.2s;
+}
+.status-btn.new{border-color:var(--green);color:var(--green);}
+.status-btn.new.active,.status-btn.new:hover{background:var(--green);color:#FFF;}
+.status-btn.progress{border-color:var(--amber);color:var(--amber);}
+.status-btn.progress.active,.status-btn.progress:hover{background:var(--amber);color:#FFF;}
+.status-btn.revision{border-color:var(--blue);color:var(--blue);}
+.status-btn.revision.active,.status-btn.revision:hover{background:var(--blue);color:#FFF;}
+.status-btn.delivered{border-color:var(--muted);color:var(--muted);}
+.status-btn.delivered.active,.status-btn.delivered:hover{background:var(--muted);color:#FFF;}
+.btn-delete{
+  margin-left:auto;padding:7px 14px;background:transparent;
+  border:1.5px solid rgba(192,57,43,0.3);color:var(--red);
+  border-radius:6px;font-family:'Jost',sans-serif;font-size:11px;
+  letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;
+}
+.btn-delete:hover{background:var(--red);color:#FFF;border-color:var(--red);}
+.btn-email-client{
+  padding:7px 14px;background:var(--forest);color:#FFF;
+  border:none;border-radius:6px;font-family:'Jost',sans-serif;
+  font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:600;
+  cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block;
+}
+.btn-email-client:hover{background:var(--forest-deep);}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:60px 24px;}
+.empty-icon{font-size:44px;margin-bottom:16px;}
+.empty-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--forest-deep);margin-bottom:8px;}
+.empty-sub{font-size:13px;color:var(--muted);max-width:320px;margin:0 auto;}
+
+/* ADD MODAL */
+.modal-overlay{
+  display:none;position:fixed;inset:0;z-index:300;
+  background:rgba(21,43,34,0.7);backdrop-filter:blur(4px);
+  align-items:center;justify-content:center;padding:24px;
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:#FFF;border-radius:16px;width:100%;max-width:560px;
+  max-height:90vh;overflow-y:auto;
+}
+.modal-header{
+  padding:24px 28px 20px;border-bottom:1px solid rgba(30,58,47,0.08);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--forest-deep);}
+.modal-close{font-size:22px;cursor:pointer;color:var(--muted);background:none;border:none;line-height:1;}
+.modal-close:hover{color:var(--text);}
+.modal-body{padding:24px 28px;}
+.m-field{margin-bottom:18px;}
+.m-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:7px;font-weight:500;}
+.m-input,.m-select,.m-textarea{
+  width:100%;padding:12px 14px;background:var(--warm-white);
+  border:1.5px solid rgba(30,58,47,0.13);border-radius:8px;
+  font-family:'Jost',sans-serif;font-size:14px;color:var(--text);
+  outline:none;transition:border-color 0.2s;appearance:none;
+}
+.m-input:focus,.m-select:focus,.m-textarea:focus{border-color:var(--forest);}
+.m-textarea{resize:vertical;min-height:80px;line-height:1.6;}
+.m-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:480px){.m-grid{grid-template-columns:1fr;}}
+.modal-footer{padding:20px 28px;border-top:1px solid rgba(30,58,47,0.08);display:flex;gap:10px;}
+.btn-save{
+  flex:1;padding:13px;background:var(--gold);color:var(--forest-deep);
+  border:none;border-radius:8px;font-family:'Jost',sans-serif;
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:700;cursor:pointer;
+}
+.btn-cancel{
+  padding:13px 20px;background:transparent;border:1.5px solid rgba(30,58,47,0.15);
+  color:var(--muted);border-radius:8px;font-family:'Jost',sans-serif;
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;
+}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--forest-deep);color:var(--cream);padding:12px 24px;border-radius:8px;font-size:13px;opacity:0;transition:all 0.3s;z-index:500;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .admin-main{padding:80px 16px 40px;}
+  .topbar{padding:14px 16px;}
+  .sub-card-header{padding:14px 16px;}
+  .sub-detail-inner{padding:16px;}
+  .status-select-row{padding:12px 16px;}
+}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">Home Designs with <em>Ashley Kay</em></div>
+    <div class="login-sub">Admin Portal</div>
+    <label class="login-label">Password</label>
+    <input class="login-input" type="password" id="pwInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="login-btn" onclick="doLogin()">Enter Admin →</button>
+    <div class="login-error" id="loginError">Incorrect password. Try again.</div>
+    <div class="login-hint">
+      Default password: <strong>ashley2026</strong><br/>
+      Change it by editing the <code>ADMIN_PASSWORD</code> variable in this file.
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="adminShell">
+  <div class="topbar">
+    <div class="topbar-logo">Home Designs with <em>Ashley Kay</em> &nbsp;·&nbsp; <span style="font-size:13px;font-family:'Jost',sans-serif;font-weight:300;">Admin</span></div>
+    <div class="topbar-right">
+      <span class="topbar-badge" id="topbarDate"></span>
+      <button class="btn-logout" onclick="doLogout()">Log Out</button>
+    </div>
+  </div>
+
+  <div class="admin-main">
+
+    <!-- STATS -->
+    <div class="stats-row" id="statsRow"></div>
+
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+      <input class="search-input" id="searchInput" placeholder="Search by name, email, or package..." oninput="renderAll()"/>
+      <button class="btn-add" onclick="openAddModal()">+ Add Client</button>
+      <button class="btn-export" onclick="exportCSV()">Export CSV</button>
+    </div>
+
+    <!-- TABS -->
+    <div class="pkg-tabs">
+      <button class="pkg-tab active" id="tab_all" onclick="setTab('all')">All <span class="tab-count" id="cnt_all">0</span></button>
+      <button class="pkg-tab" id="tab_refresh" onclick="setTab('refresh')">The Refresh <span class="tab-count" id="cnt_refresh">0</span></button>
+      <button class="pkg-tab" id="tab_revamp" onclick="setTab('revamp')">The Revamp <span class="tab-count" id="cnt_revamp">0</span></button>
+      <button class="pkg-tab" id="tab_homeedit" onclick="setTab('homeedit')">The Home Edit <span class="tab-count" id="cnt_homeedit">0</span></button>
+      <button class="pkg-tab" id="tab_new" onclick="setTab('new')">New <span class="tab-count" id="cnt_new">0</span></button>
+      <button class="pkg-tab" id="tab_delivered" onclick="setTab('delivered')">Delivered <span class="tab-count" id="cnt_delivered">0</span></button>
+    </div>
+
+    <!-- SUBMISSIONS LIST -->
+    <div class="submissions-grid" id="submissionsGrid"></div>
+
+  </div>
+</div>
+
+<!-- ADD CLIENT MODAL -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Add Client Manually</div>
+      <button class="modal-close" onclick="closeAddModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="m-grid">
+        <div class="m-field"><label class="m-label">Name</label><input class="m-input" id="m_name" placeholder="Sarah M."/></div>
+        <div class="m-field"><label class="m-label">Email</label><input class="m-input" id="m_email" type="email" placeholder="sarah@email.com"/></div>
+        <div class="m-field"><label class="m-label">Instagram</label><input class="m-input" id="m_instagram" placeholder="@username"/></div>
+        <div class="m-field"><label class="m-label">Location</label><input class="m-input" id="m_location" placeholder="Austin, TX"/></div>
+      </div>
+      <div class="m-field"><label class="m-label">Package</label>
+        <select class="m-select" id="m_package">
+          <option value="refresh">The Refresh ($149–$199)</option>
+          <option value="revamp">The Revamp ($349–$499)</option>
+          <option value="homeedit">The Home Edit ($799–$1,299)</option>
+        </select>
+      </div>
+      <div class="m-grid">
+        <div class="m-field"><label class="m-label">Rooms</label><input class="m-input" id="m_rooms" placeholder="Living Room, Bedroom"/></div>
+        <div class="m-field"><label class="m-label">Budget</label><input class="m-input" id="m_budget" placeholder="$500–$1,500"/></div>
+      </div>
+      <div class="m-field"><label class="m-label">Design Style</label><input class="m-input" id="m_style" placeholder="Warm & Earthy, Boho"/></div>
+      <div class="m-field"><label class="m-label">Notes</label><textarea class="m-textarea" id="m_notes" placeholder="Any notes about this client..."></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeAddModal()">Cancel</button>
+      <button class="btn-save" onclick="saveNewClient()">Save Client</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var ADMIN_PASSWORD = 'ashley2026'; // Change this to your own password
+var STORAGE_KEY = 'ashleykay_submissions';
+var currentTab = 'all';
+var submissions = [];
+
+// ── AUTH ──
+function doLogin() {
+  var pw = document.getElementById('pwInput').value;
+  if (pw === ADMIN_PASSWORD) {
+    sessionStorage.setItem('ak_auth', '1');
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminShell').style.display = 'block';
+    init();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+    document.getElementById('pwInput').value = '';
+    document.getElementById('pwInput').focus();
+  }
+}
+function doLogout() {
+  sessionStorage.removeItem('ak_auth');
+  location.reload();
+}
+
+// ── INIT ──
+function init() {
+  document.getElementById('topbarDate').textContent = new Date().toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'});
+  loadSubmissions();
+  renderAll();
+  // Listen for new submissions from main site (same origin)
+  window.addEventListener('storage', function(e) {
+    if (e.key === STORAGE_KEY) { loadSubmissions(); renderAll(); }
+  });
+}
+
+function loadSubmissions() {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    submissions = raw ? JSON.parse(raw) : [];
+  } catch(e) { submissions = []; }
+  if (submissions.length === 0) { seedDemoData(); }
+}
+
+function saveSubmissions() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(submissions));
+}
+
+function seedDemoData() {
+  submissions = [
+    {id:'demo1',name:'Sarah M.',email:'sarah@email.com',instagram:'@sarahm_home',location:'Austin, TX',package:'revamp',packageLabel:'The Revamp',rooms:'Living Room, Bedroom',style:'Warm & Earthy',budget:'$1,500–$3,000',problem:'Nothing matches, feels dark',usage:'WFH, 2 kids, dog',keeping:'Sofa',avoid:'No grey',notes:'',extra:'Rush if possible',status:'progress',submitted:new Date(Date.now()-2*86400000).toLocaleString()},
+    {id:'demo2',name:'Jamie K.',email:'jamie@gmail.com',instagram:'@jamiehome',location:'Nashville, TN',package:'refresh',packageLabel:'The Refresh',rooms:'Living Room',style:'Cozy Minimal',budget:'$500–$1,500',problem:'Too cluttered',usage:'Just me, renter',keeping:'Coffee table',avoid:'No farmhouse',notes:'Renter - no nails or paint',extra:'',status:'new',submitted:new Date(Date.now()-86400000).toLocaleString()},
+    {id:'demo3',name:'Maya R.',email:'maya@outlook.com',instagram:'@mayardesigns',location:'Los Angeles, CA',package:'homeedit',packageLabel:'The Home Edit',rooms:'Living Room, Dining, Office, Bedroom',style:'Bold Maximalist, Glam',budget:'$6,000+',problem:'Just moved in, blank canvas',usage:'Entertain often, home office',keeping:'Nothing',avoid:'Nothing off limits',notes:'',extra:'Excited to start!',status:'new',submitted:new Date().toLocaleString()},
+    {id:'demo4',name:'Priya S.',email:'priya@email.com',instagram:'@priyahomes',location:'Chicago, IL',package:'revamp',packageLabel:'The Revamp',rooms:'Bedroom, Home Office',style:'Scandinavian, Cozy Minimal',budget:'$1,500–$3,000',problem:'Office has no personality',usage:'Remote worker, needs focus space',keeping:'Desk',avoid:'No all-white',notes:'',extra:'',status:'delivered',submitted:new Date(Date.now()-7*86400000).toLocaleString()},
+  ];
+  saveSubmissions();
+}
+
+// ── TAB ──
+function setTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.pkg-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.getElementById('tab_' + tab).classList.add('active');
+  renderAll();
+}
+
+// ── RENDER ──
+function renderAll() {
+  var search = document.getElementById('searchInput').value.toLowerCase();
+  var filtered = submissions.filter(function(s) {
+    var matchTab = currentTab === 'all' ||
+      (currentTab === 'new' && s.status === 'new') ||
+      (currentTab === 'delivered' && s.status === 'delivered') ||
+      s.package === currentTab;
+    var matchSearch = !search ||
+      (s.name && s.name.toLowerCase().indexOf(search) !== -1) ||
+      (s.email && s.email.toLowerCase().indexOf(search) !== -1) ||
+      (s.packageLabel && s.packageLabel.toLowerCase().indexOf(search) !== -1);
+    return matchTab && matchSearch;
+  });
+
+  // Update counts
+  document.getElementById('cnt_all').textContent = submissions.length;
+  document.getElementById('cnt_refresh').textContent = submissions.filter(function(s){return s.package==='refresh';}).length;
+  document.getElementById('cnt_revamp').textContent = submissions.filter(function(s){return s.package==='revamp';}).length;
+  document.getElementById('cnt_homeedit').textContent = submissions.filter(function(s){return s.package==='homeedit';}).length;
+  document.getElementById('cnt_new').textContent = submissions.filter(function(s){return s.status==='new';}).length;
+  document.getElementById('cnt_delivered').textContent = submissions.filter(function(s){return s.status==='delivered';}).length;
+
+  // Stats
+  var totalRevenue = submissions.reduce(function(acc,s) {
+    if(s.package==='refresh') return acc+174;
+    if(s.package==='revamp') return acc+424;
+    if(s.package==='homeedit') return acc+1049;
+    return acc;
+  }, 0);
+  document.getElementById('statsRow').innerHTML = [
+    {num: submissions.length, label: 'Total Clients', sub: 'All time', color: 'c-forest'},
+    {num: submissions.filter(function(s){return s.status==='new';}).length, label: 'New Inquiries', sub: 'Need your attention', color: 'c-green'},
+    {num: submissions.filter(function(s){return s.status==='progress';}).length, label: 'In Progress', sub: 'Active projects', color: 'c-gold'},
+    {num: '$' + totalRevenue.toLocaleString(), label: 'Est. Revenue', sub: 'At avg package price', color: 'c-forest'},
+  ].map(function(s) {
+    return '<div class="stat-card"><div class="stat-card-num ' + s.color + '">' + s.num + '</div><div class="stat-card-label">' + s.label + '</div><div class="stat-card-sub">' + s.sub + '</div></div>';
+  }).join('');
+
+  // Grid
+  var grid = document.getElementById('submissionsGrid');
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="empty-state"><div class="empty-icon">🌿</div><div class="empty-title">No clients here yet</div><div class="empty-sub">Submissions from your website appear here automatically.</div></div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(function(s) { return renderCard(s); }).join('');
+}
+
+function pkgColor(pkg) {
+  if(pkg==='refresh') return '#2D6A4F';
+  if(pkg==='revamp') return '#B8974A';
+  if(pkg==='homeedit') return '#152B22';
+  return '#6B6558';
+}
+
+function statusBadge(status) {
+  var map = {new:'status-new',progress:'status-progress',revision:'status-revision',delivered:'status-delivered'};
+  var labels = {new:'New',progress:'In Progress',revision:'Revision',delivered:'Delivered'};
+  return '<span class="status-badge ' + (map[status]||'status-new') + '">' + (labels[status]||status) + '</span>';
+}
+
+function initials(name) {
+  if(!name) return '?';
+  return name.split(' ').map(function(w){return w[0];}).join('').toUpperCase().slice(0,2);
+}
+
+function renderCard(s) {
+  return '<div class="sub-card" id="card_' + s.id + '">' +
+    '<div class="sub-card-header" onclick="toggleCard(\'' + s.id + '\')">' +
+      '<div class="sub-card-left">' +
+        '<div class="sub-avatar" style="background:' + pkgColor(s.package) + '">' + initials(s.name) + '</div>' +
+        '<div>' +
+          '<div class="sub-name">' + (s.name||'Anonymous') + '</div>' +
+          '<div class="sub-meta">' + (s.email||'') + (s.location ? ' · ' + s.location : '') + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="sub-card-right">' +
+        '<span style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:' + pkgColor(s.package) + ';font-weight:600;">' + (s.packageLabel||s.package) + '</span>' +
+        statusBadge(s.status) +
+        '<span class="sub-date">' + (s.submitted||'') + '</span>' +
+        '<span class="sub-chevron">▼</span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="sub-detail">' +
+      '<div class="sub-detail-inner">' +
+        '<div class="detail-section">' +
+          '<div class="detail-section-title">Client Info</div>' +
+          detailRow('Name', s.name) +
+          detailRow('Email', s.email) +
+          detailRow('Instagram', s.instagram) +
+          detailRow('Location', s.location) +
+          detailRow('Ownership', s.ownership) +
+        '</div>' +
+        '<div class="detail-section">' +
+          '<div class="detail-section-title">Project Details</div>' +
+          detailRow('Package', s.packageLabel||s.package) +
+          detailRow('Rooms', s.rooms) +
+          detailRow('Style', s.style) +
+          detailRow('Budget', s.budget) +
+          detailRow('Keeping', s.keeping) +
+        '</div>' +
+        '<div class="detail-section">' +
+          '<div class="detail-section-title">Their Space</div>' +
+          detailRow('Main Problem', s.problem) +
+          detailRow('Daily Usage', s.usage) +
+          detailRow('Avoid', s.avoid) +
+        '</div>' +
+        '<div class="detail-section">' +
+          '<div class="detail-section-title">Extras</div>' +
+          detailRow('Inspiration', s.inspiration) +
+          detailRow('Notes', s.notes) +
+          detailRow('Extra Notes', s.extra) +
+          detailRow('Submitted', s.submitted) +
+        '</div>' +
+      '</div>' +
+      '<div class="status-select-row">' +
+        '<span class="status-select-label">Status:</span>' +
+        '<button class="status-btn new' + (s.status==='new'?' active':'') + '" onclick="setStatus(\'' + s.id + '\',\'new\')">New</button>' +
+        '<button class="status-btn progress' + (s.status==='progress'?' active':'') + '" onclick="setStatus(\'' + s.id + '\',\'progress\')">In Progress</button>' +
+        '<button class="status-btn revision' + (s.status==='revision'?' active':'') + '" onclick="setStatus(\'' + s.id + '\',\'revision\')">Revision</button>' +
+        '<button class="status-btn delivered' + (s.status==='delivered'?' active':'') + '" onclick="setStatus(\'' + s.id + '\',\'delivered\')">Delivered</button>' +
+        (s.email ? '<a class="btn-email-client" href="mailto:' + s.email + '?subject=Your ' + (s.packageLabel||'Design') + ' Package — Home Designs with Ashley Kay">Email Client</a>' : '') +
+        '<button class="btn-delete" onclick="deleteClient(\'' + s.id + '\')">Delete</button>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function detailRow(label, val) {
+  return '<div class="detail-row"><div class="detail-label">' + label + '</div><div class="detail-val' + (!val?' empty':'') + '">' + (val||'Not provided') + '</div></div>';
+}
+
+function toggleCard(id) {
+  var card = document.getElementById('card_' + id);
+  if(card) card.classList.toggle('open');
+}
+
+function setStatus(id, status) {
+  var s = submissions.find(function(x){return x.id===id;});
+  if(s){ s.status = status; saveSubmissions(); renderAll(); showToast('Status updated to ' + status); }
+}
+
+function deleteClient(id) {
+  if(!confirm('Delete this client? This cannot be undone.')) return;
+  submissions = submissions.filter(function(s){return s.id!==id;});
+  saveSubmissions(); renderAll(); showToast('Client deleted');
+}
+
+// ── ADD CLIENT ──
+function openAddModal() { document.getElementById('addModal').classList.add('open'); }
+function closeAddModal() { document.getElementById('addModal').classList.remove('open'); }
+
+function saveNewClient() {
+  var pkgVal = document.getElementById('m_package').value;
+  var pkgLabels = {refresh:'The Refresh ($149–$199)',revamp:'The Revamp ($349–$499)',homeedit:'The Home Edit ($799–$1,299)'};
+  var client = {
+    id: 'manual_' + Date.now(),
+    name: document.getElementById('m_name').value,
+    email: document.getElementById('m_email').value,
+    instagram: document.getElementById('m_instagram').value,
+    location: document.getElementById('m_location').value,
+    package: pkgVal,
+    packageLabel: pkgLabels[pkgVal],
+    rooms: document.getElementById('m_rooms').value,
+    budget: document.getElementById('m_budget').value,
+    style: document.getElementById('m_style').value,
+    notes: document.getElementById('m_notes').value,
+    status: 'new',
+    submitted: new Date().toLocaleString()
+  };
+  submissions.unshift(client);
+  saveSubmissions(); renderAll(); closeAddModal();
+  ['m_name','m_email','m_instagram','m_location','m_rooms','m_budget','m_style','m_notes'].forEach(function(id){document.getElementById(id).value='';});
+  showToast('Client added!');
+}
+
+// ── EXPORT CSV ──
+function exportCSV() {
+  var headers = ['Name','Email','Instagram','Location','Package','Rooms','Style','Budget','Problem','Usage','Keeping','Avoid','Notes','Status','Submitted'];
+  var rows = submissions.map(function(s) {
+    return [s.name,s.email,s.instagram,s.location,s.packageLabel,s.rooms,s.style,s.budget,s.problem,s.usage,s.keeping,s.avoid,s.notes,s.status,s.submitted].map(function(v){return '"'+(v||'').replace(/"/g,'""')+'"';}).join(',');
+  });
+  var csv = [headers.join(',')].concat(rows).join('\n');
+  var blob = new Blob([csv], {type:'text/csv'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'AshleyKay_Clients_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click(); URL.revokeObjectURL(url);
+  showToast('CSV exported!');
+}
+
+// ── TOAST ──
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');}, 2800);
+}
+
+// ── AUTO LOGIN CHECK ──
+if (sessionStorage.getItem('ak_auth') === '1') {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('adminShell').style.display = 'block';
+  init();
+} else {
+  document.getElementById('pwInput').focus();
+}
+document.getElementById('pwInput').addEventListener('keydown', function(e){if(e.key==='Enter')doLogin();});
+</script>
+</body>
+</html>

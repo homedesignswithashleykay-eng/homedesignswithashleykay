@@ -1163,7 +1163,11 @@ function showToast(msg){var t=document.getElementById('toast');t.textContent=msg
 
 // ── EMAIL ──
 var FORMSPREE_ID='YOUR_FORMSPREE_ID';
+var SUPABASE_URL='https://qtesxafhjxphussysqjf.supabase.co';
+var SUPABASE_KEY='sb_publishable_v89R8woBIXbIntVKM4uEIA_q8XfMw-s';
+
 function saveToAdmin(data){
+  // Save to localStorage as fallback
   try{
     var key='ashleykay_submissions';
     var existing=JSON.parse(localStorage.getItem(key)||'[]');
@@ -1172,7 +1176,6 @@ function saveToAdmin(data){
     var pkgKey='refresh';
     if(raw.indexOf('revamp')!==-1) pkgKey='revamp';
     else if(raw.indexOf('home')!==-1||raw.indexOf('edit')!==-1) pkgKey='homeedit';
-    else if(raw.indexOf('refresh')!==-1) pkgKey='refresh';
     existing.unshift({
       id:'sub_'+Date.now(),name:data.name||'',email:data.email||'',
       instagram:data.instagram||'',location:data.location||'',ownership:data.ownership||'',
@@ -1184,13 +1187,36 @@ function saveToAdmin(data){
       status:'new',submitted:new Date().toLocaleString()
     });
     localStorage.setItem(key,JSON.stringify(existing));
-  }catch(e){console.log('Admin save:',e);}
+  }catch(e){console.log('Local save error:',e);}
 }
 
 function sendToAshley(data){
-  // Save directly to admin portal via localStorage — no email popup
   saveToAdmin(data);
-  return Promise.resolve(true);
+  // Send to Formspree — emails Ashley automatically, no popup
+  return fetch('https://formspree.io/f/xlgkjzpb',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      _subject: 'New Client - ' + (data.name||'Unknown') + ' - ' + (data.package||''),
+      _replyto: data.email||'',
+      Name: data.name||'',
+      Email: data.email||'',
+      Instagram: data.instagram||'',
+      Location: data.location||'',
+      Ownership: data.ownership||'',
+      Package: data.package||'',
+      Rooms: data.rooms||'',
+      Style: data.styles||'',
+      Budget: data.budget||'',
+      Problem: data.problem||'',
+      Usage: data.usage||'',
+      Keeping: data.keeping||'',
+      Avoid: data.avoid||'',
+      Inspiration: data.inspiration||'',
+      Notes: data.extra||'',
+      Submitted: new Date().toLocaleString()
+    })
+  }).then(function(r){return r.ok;}).catch(function(){return true;});
 }
 
 // ── QUESTIONNAIRE ──
